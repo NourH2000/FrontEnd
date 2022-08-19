@@ -5,6 +5,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import moment from "moment";
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import {
   Button,
   Grid,
@@ -19,7 +20,7 @@ import ClearAllIcon from "@mui/icons-material/ClearAll";
 import SendIcon from "@mui/icons-material/Send";
 import axios from "axios";
 import { styled, createStyles } from "@mui/material/styles";
-
+import RotateLoader from "react-spinners/RotateLoader";
 const Form = () => {
   // item stack
   const ItemStack = styled(Paper)(({ theme }) => ({
@@ -30,9 +31,11 @@ const Form = () => {
     color: theme.palette.text.secondary,
   }));
   //initial values
-  const today = new Date();
-  const [valueOne, setValueOne] = useState(moment(today).format("YYYY-MM-DD"));
-  const [valueTwo, setValueTwo] = useState(moment(today).format("YYYY-MM-DD"));
+  //const today = new Date();
+  //const [valueOne, setValueOne] = useState(moment(today).format("YYYY-MM-DD"));
+  //const [valueTwo, setValueTwo] = useState(moment(today).format("YYYY-MM-DD"));
+  const [valueOne, setValueOne] = useState(null);
+  const [valueTwo, setValueTwo] = useState(null);
 
   // values choosed
   const handleChangevalueOne = (newValueOne) => {
@@ -72,8 +75,8 @@ const Form = () => {
   };
 
   // find the max and min date allowed
-  const [maxDate, setMaxDate] = useState(moment(today).format("YYYY-MM-DD"));
-  const [minDate, setMinDate] = useState(moment(today).format("YYYY-MM-DD"));
+  const [maxDate, setMaxDate] = useState(null);
+  const [minDate, setMinDate] = useState(null);
 
   useEffect(() => {
     axios.get("http://localhost:8000/models/getMindateP").then((response) => {
@@ -96,14 +99,22 @@ const Form = () => {
     setValueOne(minDate);
     setValueTwo(maxDate);
   };
+  // date loading
+  const [dateLoading, setDateLoading] = useState(true);
+
+  console.log(minDate)
+  console.log(maxDate)
 
   return (
-    <Stack
+    <>
+      {minDate && maxDate?
+      <Stack
       direction="column"
       alignItems="stretch"
       spacing={0}
       sx={{ height: "100%", width: "100%" }}
     >
+      
       <Snackbar
         open={open}
         autoHideDuration={3000}
@@ -113,85 +124,133 @@ const Form = () => {
         <Alert onClose={(event, reason) => setOpen(false)} severity="error">
           <strong>This interval of date has already trained </strong>
         </Alert>
-      </Snackbar>
-      <ItemStack elevation={0} sx={{ textAlign: "left" }}>
-        <Typography
-          color="black"
-          sx={{ fontWeight: "bold", marginBottom: "5%", marginTop: "5%" }}
-          variant="h6"
-          gutterBottom
-        >
-          Result of training number
-        </Typography>
-        <Divider />
-      </ItemStack>
-      <ItemStack
-        elevation={0}
-        sx={{
-          height: "100%",
-          width: "100%",
-          textAlign: "center",
-          marginTop: "10%",
-        }}
-      >
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <Stack spacing={2}>
-            <DesktopDatePicker
-              label="De"
-              inputFormat="dd/MM/yyyy"
-              value={valueOne}
-              minDate={minDate}
-              maxDate={maxDate}
-              onChange={handleChangevalueOne}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  inputProps={{
-                    ...params.inputProps,
-                    placeholder: "dd/mm/aaaa",
-                  }}
-                />
-              )}
-            />
+      </Snackbar> 
+       <ItemStack elevation={0} sx={{ textAlign: "left" }}>
+       <Typography
+         color="black"
+         sx={{ fontWeight: "bold", marginBottom: "5%", marginTop: "5%" }}
+         variant="h6"
+         gutterBottom
+       >
+         New training
+       </Typography>
+       <Divider />
+     </ItemStack>
+     <ItemStack
+     elevation={0}
+     sx={{
+       height: "100%",
+       width: "100%",
+       textAlign: "center",
+       marginTop: "10%",
+     }}
+   >
+     <LocalizationProvider dateAdapter={AdapterDateFns}>
+       <Stack spacing={2}>
+       {/*<DatePicker
+        label="Basic example"
+        value={valueOne}
+        minDate={minDate}
+           maxDate={maxDate}
+        onChange={handleChangevalueOne}
+        renderInput={(params) => <TextField
+          {...params}
+          inputProps={{
+            ...params.inputProps,
+            placeholder: "dd/mm/aaaa",
+          }}
+        />}
+      />*/}
+         <DesktopDatePicker
+           label="De"
+           inputFormat="dd/MM/yyyy"
+           value={valueOne}
+           minDate={minDate}
+           maxDate={maxDate}
+           onChange={handleChangevalueOne}
+           renderInput={(params) => (
+             <TextField
+               {...params}
+               inputProps={{
+                 ...params.inputProps,
+                 placeholder: "dd/mm/aaaa",
+               }}
+             />
+           )}
+         />
 
-            <DesktopDatePicker
-              label="Jusqu'a"
-              inputFormat="dd/MM/yyyy"
-              value={valueTwo}
-              minDate={minDate}
-              maxDate={maxDate}
-              onChange={handleChangevalueTwo}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  inputProps={{
-                    ...params.inputProps,
-                    placeholder: "dd/mm/aaaa",
-                  }}
-                />
-              )}
-            />
-          </Stack>
-        </LocalizationProvider>
-      </ItemStack>
-      <ItemStack
-        elevation={0}
-        sx={{
-          height: "100%",
-          width: "100%",
-          textAlign: "center",
-        }}
-      >
-        <Stack direction="row" justifyContent="space-between">
-          <Button variant="text" endIcon={<SendIcon />} onClick={test}>
-            Send
-          </Button>
-          <IconButton aria-label="delete" size="large" onClick={ClearAll}>
-            <ClearAllIcon fontSize="inherit" />
-          </IconButton>
-        </Stack>
-      </ItemStack>
-    </Stack>
+         <DesktopDatePicker
+           label="Jusqu'a"
+           inputFormat="dd/MM/yyyy"
+           value={valueTwo}
+           minDate={minDate}
+           maxDate={maxDate}
+           onChange={handleChangevalueTwo}
+           renderInput={(params) => (
+             <TextField
+               {...params}
+               inputProps={{
+                 ...params.inputProps,
+                 placeholder: "dd/mm/aaaa",
+               }}
+             />
+           )}
+         />
+       </Stack>
+     </LocalizationProvider>
+   </ItemStack>
+   <ItemStack
+     elevation={0}
+     sx={{
+       height: "100%",
+       width: "100%",
+       textAlign: "center",
+     }}
+   >
+     <Stack direction="row" justifyContent="space-between">
+       <Button variant="text" endIcon={<SendIcon />} onClick={test}>
+         Send
+       </Button>
+       <IconButton aria-label="delete" size="large" onClick={ClearAll}>
+         <ClearAllIcon fontSize="inherit" />
+       </IconButton>
+     </Stack>
+   </ItemStack> </Stack>
+      :
+      <Stack
+      direction="column"
+      
+      spacing={0}
+      sx={{ height: "300px", width: "100%" }}
+    > <ItemStack elevation={0} sx={{ textAlign: "left" }}>
+    <Typography
+      color="black"
+      sx={{ fontWeight: "bold", marginBottom: "5%", marginTop: "5%" }}
+      variant="h6"
+      gutterBottom
+    >
+      New training
+    </Typography>
+    <Divider />
+  </ItemStack><ItemStack
+     elevation={0}
+     sx={{
+       height: "100%",
+       width: "100%",
+       
+     }}
+   >
+     <Stack direction="row" justifyContent="center"
+  alignItems="center" 
+  sx={{ height: "100%",}}>
+     <RotateLoader color="#113f67" loading={dateLoading} sx={{ display: "block",   margin: "auto auto", borderColor: "red"}} size={10}  />
+
+     </Stack>
+   </ItemStack> </Stack> }
+      
+     
+     </> 
+   
   );
 };
 

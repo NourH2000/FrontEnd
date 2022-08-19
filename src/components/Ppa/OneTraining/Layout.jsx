@@ -44,8 +44,8 @@ const OneTrainingLayoutP = () => {
             xs={12}
             justifyContent="space-between"
           >
-            <Grid item xs={12} md={7.5} sm={12} padding={0}>
-              <Stack spacing={4}>
+            <Grid item xs={12} md={7.5} sm={12} padding={0} >
+              <Stack spacing={4} >
                 <ItemStack
                   sx={{
                     boxShadow: "none",
@@ -70,6 +70,8 @@ const OneTrainingLayoutP = () => {
                     </Grid>
                   </Grid>
                 </ItemStack>
+                
+                
                 <ItemStack
                   sx={{
                     boxShadow: "none",
@@ -88,37 +90,54 @@ const OneTrainingLayoutP = () => {
                       <ItemGrid xs={9} sx={{ padding: "3%" }}>
                         <OneTrainingdataGrid />{" "}
                       </ItemGrid>
+                      
+                    </Grid>
+
+                    
+    
+                  </Grid>
+                </ItemStack>
+                <ItemStack
+                  sx={{
+                    boxShadow: "none",
+                    textAlign: "center",
+                    backgroundColor: "transparent",
+                    padding: "0px",
+                  }}
+                >
+                  <Grid
+                    container
+                    justifyContent="space-between"
+                    alignItems="center"
+                    md={12}
+                    sm={12}
+                    xs={12}
+                  >
+                    <Grid item md={5.9} sm={12} xs={12}>
+                      <Cards type={CountMedicament} />
+                    </Grid>
+                    <Grid item md={5.9} sm={12} xs={12}>
+                      <Cards type={CasPerMedicament} />
                     </Grid>
                   </Grid>
                 </ItemStack>
+                
               </Stack>
             </Grid>
 
-            <Grid item xs={12} md={4} sm={12}>
+
+            <Grid item xs={12} md={4} sm={12} >
               <ItemGrid sx={{ padding: "3%" }}>
                 <DonutChart />
               </ItemGrid>
-              <ItemGrid sx={{ padding: "3%", marginTop: "10px" }}>
+              <ItemGrid sx={{ padding: "3%", marginTop: "10px"  , backgroundColor :'green'}}>
                 <OneTrainingBarHorizontal />
               </ItemGrid>
+              
             </Grid>
           </Grid>
-        </ItemStack>
-        <ItemStack elevation={0} sx={{ backgroundColor: "transparent" }}>
-          <Grid
-            container
-            md={12}
-            sm={12}
-            xs={12}
-            justifyContent="space-between"
-          >
-            <Grid item xs={12} sx={{ backgroundColor: "transparent" }}>
-              <ItemGrid sx={{ padding: "3%" }}>
-                <OneTrainingColumn />
-              </ItemGrid>
-            </Grid>
-          </Grid>
-        </ItemStack>
+        </ItemStack> 
+        
         <ItemStack elevation={0} sx={{ backgroundColor: "transparent" }}>
           <Grid
             container
@@ -134,6 +153,7 @@ const OneTrainingLayoutP = () => {
             </Grid>
           </Grid>
         </ItemStack>
+        
       </Stack>
     </>
   );
