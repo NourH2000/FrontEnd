@@ -47,13 +47,13 @@ const OneMedicationLayoutPSeeMore = ({ DetailsTable }) => {
         <Grid container spacing={2}>
           <Grid item spacing={0} xs={4}>
             <ItemGrid xs={9} sx={{ padding: "3%", height: 800 }}>
-              {" "}
+              
               <OneTrainingPharmacyDatagridSeeMore />{" "}
             </ItemGrid>
           </Grid>
           <Grid item spacing={0} xs={8}>
             <ItemGrid xs={9} sx={{ padding: "3%", height: 800 }}>
-              {" "}
+              
               <OneTrainingCenterDatagridSeeMore />{" "}
             </ItemGrid>
           </Grid>

@@ -61,7 +61,13 @@ const OneTrainingCenterDatagridSeeMore = () => {
   // fetch the data :
   const idHistory = location.state.idHistory;
   // state for wilaya
-  const [wilaya, setWilaya] = useState(1);
+
+  // table of wilaya's
+
+  const AllWIlaya  =Array.from(Array(59).keys())
+  console.log(AllWIlaya);
+  const All = 0
+  const [wilaya, setWilaya] = useState(All);
   const handleChange = (event) => {
     setWilaya(event.target.value);
   };
@@ -94,9 +100,7 @@ const OneTrainingCenterDatagridSeeMore = () => {
       count: row?.count,
     };
   });
-  // table of wilaya's
 
-  const AllWIlaya = Array.from(Array(58).keys());
   // go to the details of one medication
   //Navigation
   const navigate = useNavigate();
@@ -127,7 +131,7 @@ const OneTrainingCenterDatagridSeeMore = () => {
             variant="h6"
             gutterBottom
           >
-            the suspected medications in wilaya {wilaya}
+             {wilaya == 0 ?"the suspected medications in all region"  :" the suspected medications in region "+wilaya }
           </Typography>
 
           <FormControl
@@ -135,7 +139,7 @@ const OneTrainingCenterDatagridSeeMore = () => {
             sx={{ m: 1, minWidth: 20, marginBottom: "%" }}
           >
             <Select
-              defaultValue={5}
+              defaultValue={All}
               labelId="demo-simple-select-standard-label"
               id="demo-simple-select-standard"
               value={wilaya}
@@ -144,7 +148,8 @@ const OneTrainingCenterDatagridSeeMore = () => {
               autoWidth
               sx={{ fontWeight: "bold" }}
             >
-              {AllWIlaya.map((row) => (
+              <MenuItem value={0}>ALL</MenuItem>
+                {AllWIlaya.map((row) => (
                 <MenuItem value={row + 1}>{row + 1}</MenuItem>
               ))}
             </Select>

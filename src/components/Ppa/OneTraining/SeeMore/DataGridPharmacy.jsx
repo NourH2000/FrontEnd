@@ -113,7 +113,8 @@ const OneTrainingPharmacyDatagridSeeMore = () => {
   const HistoryRow = codeps.map((row) => {
     return {
       id: inc(i),
-      codeps: row?.codeps,
+      codeps:
+      (row?.codeps == 'None' && "Agent cnas") ,
       count: row?.count,
     };
   });

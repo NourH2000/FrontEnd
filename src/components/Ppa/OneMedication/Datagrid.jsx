@@ -24,9 +24,9 @@ const columns = [
     align: "center",
   },
   {
-    field: "centre",
-    headerName: "Center",
-    width: 180,
+    field: "region",
+    headerName: "Region",
+    width: 100,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
     align: "center",
@@ -59,7 +59,7 @@ const columns = [
   {
     field: "pharmacie",
     headerName: "Pharmacy",
-    width: 200,
+    width: 150,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
     align: "center",
@@ -68,6 +68,22 @@ const columns = [
     field: "type",
     headerName: "Type",
     width: 250,
+    headerClassName: "super-app-theme--header",
+    headerAlign: "center",
+    align: "center",
+  },
+  {
+    field: "ts",
+    headerName: "Ts",
+    width: 100,
+    headerClassName: "super-app-theme--header",
+    headerAlign: "center",
+    align: "center",
+  },
+  {
+    field: "tier_payant",
+    headerName: "Tier payant",
+    width: 100,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
     align: "center",
@@ -116,7 +132,7 @@ const OneMedicationdataGrid = () => {
     return {
       id: inc(i),
       prescription: row?.fk,
-      centre: row?.centre,
+      region: row?.region,
       prix_min: row?.prix_min,
       prix_max: row?.prix_max,
       prix_ppa: row?.prix_ppa,
@@ -124,6 +140,12 @@ const OneMedicationdataGrid = () => {
       type:
         (row?.outside == "1" && "higher than the max") ||
         (row?.outside == "-1" && "less than min"),
+      ts: 
+        (row?.ts == "O" && "Yes") ||
+        (row?.ts == "N" && "No"),
+      tier_payant: 
+        (row?.tier_payant == "O" && "Yes") ||
+        (row?.tier_payant == "N" && "No"),
     };
   });
 

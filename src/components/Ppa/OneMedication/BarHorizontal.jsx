@@ -96,6 +96,9 @@ const OneMedicationBarHorizontal = () => {
         data: count,
       },
     ],
+    noData: {
+      text: "Empty data",
+    },
     options: {
       chart: {
         type: "bar",

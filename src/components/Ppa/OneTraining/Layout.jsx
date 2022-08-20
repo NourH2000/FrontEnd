@@ -8,6 +8,9 @@ import OneTrainingColumn from "./Column";
 import OneTrainingBarHorizontal from "./BarHorizontal";
 import { Grid, Paper, Stack } from "@mui/material";
 import OneTrainingLine from "./Line";
+import OneTrainingDonutChartTs from "./DonutChartTs"
+import OneTrainingDonutChartTP from "./DonutChartTP"
+import OneTrainingDonutChartPhar from "./DonutChartPhar"
 
 const OneTrainingLayoutP = () => {
   // recupérer l'id de historique
@@ -97,30 +100,7 @@ const OneTrainingLayoutP = () => {
     
                   </Grid>
                 </ItemStack>
-                <ItemStack
-                  sx={{
-                    boxShadow: "none",
-                    textAlign: "center",
-                    backgroundColor: "transparent",
-                    padding: "0px",
-                  }}
-                >
-                  <Grid
-                    container
-                    justifyContent="space-between"
-                    alignItems="center"
-                    md={12}
-                    sm={12}
-                    xs={12}
-                  >
-                    <Grid item md={5.9} sm={12} xs={12}>
-                      <Cards type={CountMedicament} />
-                    </Grid>
-                    <Grid item md={5.9} sm={12} xs={12}>
-                      <Cards type={CasPerMedicament} />
-                    </Grid>
-                  </Grid>
-                </ItemStack>
+                
                 
               </Stack>
             </Grid>
@@ -130,13 +110,47 @@ const OneTrainingLayoutP = () => {
               <ItemGrid sx={{ padding: "3%" }}>
                 <DonutChart />
               </ItemGrid>
-              <ItemGrid sx={{ padding: "3%", marginTop: "10px"  , backgroundColor :'green'}}>
+              <ItemGrid sx={{ padding: "3%", marginTop: "10px"  }}>
                 <OneTrainingBarHorizontal />
               </ItemGrid>
               
             </Grid>
           </Grid>
         </ItemStack> 
+
+        <ItemStack elevation={0} sx={{ backgroundColor: "transparent" }}>
+          <Grid
+            container
+            md={12}
+            sm={12}
+            xs={12}
+            justifyContent="space-between"
+          >
+            <Grid item xs={3.9} sx={{ backgroundColor: "transparent" }}>
+              <ItemGrid sx={{ padding: "3%" }}>
+              <OneTrainingDonutChartTs />
+              </ItemGrid>
+              
+              
+            </Grid>
+            <Grid item xs={3.9} sx={{ backgroundColor: "transparent" }}>
+              <ItemGrid sx={{ padding: "3%" }}>
+              <OneTrainingDonutChartTP />
+              </ItemGrid>
+              
+              
+            </Grid>
+            <Grid item xs={3.9} sx={{ backgroundColor: "transparent" }}>
+              <ItemGrid sx={{ padding: "3%" }}>
+              <OneTrainingDonutChartPhar /> 
+              </ItemGrid>
+              
+              
+            </Grid>
+
+            
+          </Grid>
+        </ItemStack>
         
         <ItemStack elevation={0} sx={{ backgroundColor: "transparent" }}>
           <Grid
@@ -153,6 +167,7 @@ const OneTrainingLayoutP = () => {
             </Grid>
           </Grid>
         </ItemStack>
+        
         
       </Stack>
     </>

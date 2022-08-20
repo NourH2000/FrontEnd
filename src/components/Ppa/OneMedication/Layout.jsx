@@ -17,6 +17,8 @@ import {
 import OneMedicationdataGrid from "./Datagrid";
 import OneMedicationBarHorizontal from "./BarHorizontal";
 import OneMedicationLine from "./Line";
+import OneMedicationStackedColumns from "./StackedColumns"
+
 const OneMedicationLayoutP = () => {
   // recupérer l'id de historique
   const location = useLocation();
@@ -72,7 +74,7 @@ const OneMedicationLayoutP = () => {
       <ItemStack elevation={0} sx={{ backgroundColor: "transparent" }}>
         <Grid container xs={12} gap={0} justifyContent="space-between">
           <Grid item xs={4} sx={{ backgroundColor: "transparent" }}>
-            <ItemGrid xs={9} sx={{ padding: "3%" }}></ItemGrid>
+            <ItemGrid xs={9} sx={{ padding: "3%" }}>< OneMedicationStackedColumns /> </ItemGrid>
           </Grid>
           <Grid item xs={7.5} sx={{ backgroundColor: "transparent" }}>
             <ItemGrid sx={{ padding: "3%" }}>

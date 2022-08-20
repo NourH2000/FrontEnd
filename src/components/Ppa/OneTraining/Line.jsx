@@ -61,7 +61,7 @@ const OneTrainingLine = () => {
         //push the data into a table of center and count
         var v = {};
         // is all region exists
-        for (let i = 1; i < 59; i++) {
+        for (let i = 1; i < 60; i++) {
           let find = false;
           groupedData.map((data, key) => {
             data.key == i ? (find = true) : false;

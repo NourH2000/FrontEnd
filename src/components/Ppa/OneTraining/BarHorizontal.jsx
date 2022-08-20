@@ -65,8 +65,8 @@ const OneTrainingBarHorizontal = () => {
         // push the data into a table of codeps and count
 
         // push this data into the array of the BARS in the case of ::
-        if (SortedData.length >= 10) {
-          for (let i = 0; i < 10; i++) {
+        if (SortedData.length >= 5) {
+          for (let i = 0; i < 5; i++) {
             resultcodeps.push(SortedData[i].key);
             resultcount.push(SortedData[i].value);
           }
@@ -123,7 +123,7 @@ const OneTrainingBarHorizontal = () => {
       alignItems="stretch"
       spacing={0}
       sx={{
-        height: "500px",
+        height: "345px",
         width: "100%",
       }}
     >
@@ -139,7 +139,7 @@ const OneTrainingBarHorizontal = () => {
             variant="h6"
             gutterBottom
           >
-            the 10 pharmacy most suspicious
+            the 5 pharmacy most suspicious
           </Typography>
           <Chip
             label=" See more"
