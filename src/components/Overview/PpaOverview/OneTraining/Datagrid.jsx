@@ -3,49 +3,46 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { color } from "@mui/system";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-import {
-  Typography,
-  Paper,
-  Stack,
-  Divider,
-  InputLabel,
-  Select,
-  MenuItem,
-  FormControl,
-} from "@mui/material";
+import { Typography, Paper, Stack, Divider } from "@mui/material";
 import { styled, createStyles } from "@mui/material/styles";
-import OneTrainingAssureDatagridOneInsured from "./OneInsured";
-import Layout from "./Layout";
+
 /////////////////////////// data grid de 1 entrainement ////////////////////:
 // 1/ columns
 const columns = [
   {
     field: "id",
     headerName: "Id",
-    width: 152,
+    width: 147,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
     align: "center",
   },
   {
-    field: "medicament",
-    headerName: "Medications",
+    field: "Médicament",
+    headerName: "Médication",
     width: 270,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
     align: "center",
   },
   {
-    field: "count",
-    headerName: "Count",
+    field: "Nombre_total",
+    headerName: "total",
+    width: 270,
+    headerClassName: "super-app-theme--header",
+    headerAlign: "center",
+    align: "center",
+  },
+  {
+    field: "Nombre_suspécieux",
+    headerName: "suspected case",
     width: 270,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
     align: "center",
   },
 ];
-
-const OneTrainingCenterDatagridSeeMore = () => {
+const OneTrainingDatagrid = ({idMax}) => {
   const ItemStack = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
     ...theme.typography.body2,
@@ -59,33 +56,27 @@ const OneTrainingCenterDatagridSeeMore = () => {
   const [tableData, setTableData] = useState([]);
 
   // fetch the data :
-  const idHistory = location.state.idHistory;
-  // state for wilaya
+  //const idMax = idMax ; 
 
-  // table of wilaya's
-
-  const AllWIlaya  =Array.from(Array(59).keys())
-  //console.log(AllWIlaya);
-  const All = 0
-  const [wilaya, setWilaya] = useState(All);
-  const handleChange = (event) => {
-    setWilaya(event.target.value);
-  };
-  useEffect(() => {
+useEffect(() => {
+  if(idMax){
     axios
-      .get(
-        "http://localhost:8000/DetailsOfTrainingP/CountOneCenterMedication/",
-        {
-          params: {
-            idEntrainement: idHistory,
-            region: wilaya,
-          },
-        }
-      )
-      .then((response) => {
-        setTableData(response.data);
-      });
-  }, [wilaya]);
+    .get("http://localhost:8000/DetailsOfTrainingP/ByMedication", {
+      params: {
+        idEntrainement: idMax,
+      },
+    })
+    .then((response) => {
+      setTableData(response.data);
+      
+    });
+  }else{
+    console.log("Nothing")
+  }
+  
+}, [idMax]);
+
+  
 
   // auto increment ID
   let i = 0;
@@ -96,19 +87,19 @@ const OneTrainingCenterDatagridSeeMore = () => {
   const HistoryRow = tableData.map((row) => {
     return {
       id: inc(i),
-      medicament: row?.num_enr,
-      count: row?.count,
+      Médicament: row?.num_enr,
+      Nombre_total: row?.count_medicament,
+      Nombre_suspécieux: row?.count_medicament_suspected,
     };
   });
 
   // go to the details of one medication
   //Navigation
   const navigate = useNavigate();
-  const [DetailsTable, setDetailsTable] = useState(false);
-  const openDetails = (row) => {
-    setDetailsTable(true);
-
-    <Layout />;
+  const navigateToOneMedication = (row) => {
+    navigate("/overview/ppa/oneMedication", {
+      state: { idMax: idMax, medicament: row.Médicament },
+    });
   };
 
   const [pageSize, setPageSize] = useState(20);
@@ -120,42 +111,14 @@ const OneTrainingCenterDatagridSeeMore = () => {
       sx={{ height: 700, width: "100%" }}
     >
       <ItemStack elevation={0}>
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="flex-start"
+        <Typography
+          color="black"
+          sx={{ fontWeight: "bold", marginBottom: "2%", marginTop: "2%" }}
+          variant="h6"
+          gutterBottom
         >
-          <Typography
-            color="black"
-            sx={{ fontWeight: "bold", marginBottom: "2%", marginTop: "1%" }}
-            variant="h6"
-            gutterBottom
-          >
-             {wilaya == 0 ?"the suspected medications in all region"  :" the suspected medications in region "+wilaya }
-          </Typography>
-
-          <FormControl
-            variant="standard"
-            sx={{ m: 1, minWidth: 20, marginBottom: "%" }}
-          >
-            <Select
-              defaultValue={All}
-              labelId="demo-simple-select-standard-label"
-              id="demo-simple-select-standard"
-              value={wilaya}
-              onChange={handleChange}
-              label="Number"
-              autoWidth
-              sx={{ fontWeight: "bold" }}
-            >
-              <MenuItem value={0}>ALL</MenuItem>
-                {AllWIlaya.map((row) => (
-                <MenuItem value={row + 1}>{row + 1}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Stack>
-
+          Training number : {idMax}
+        </Typography>
         <Divider />
       </ItemStack>
       <ItemStack
@@ -186,11 +149,11 @@ const OneTrainingCenterDatagridSeeMore = () => {
               sortModel: [{ field: "Nombre_suspécieux", sort: "desc" }],
             },
           }}
-          onRowClick={(e) => openDetails(e.row)}
+          onRowClick={(e) => navigateToOneMedication(e.row)}
         />
       </ItemStack>
     </Stack>
   );
 };
 
-export default OneTrainingCenterDatagridSeeMore;
+export default OneTrainingDatagrid;

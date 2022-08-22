@@ -13,6 +13,10 @@ import OneTrainingLayoutP from "./components/Ppa/OneTraining/Layout";
 import OneMedicationLayoutP from "./components/Ppa/OneMedication/Layout";
 import OneTrainingLayoutPSeeMore from "./components/Ppa/OneTraining/SeeMore/Layout";
 import OneMedicationLayoutPSeeMore from "./components/Ppa/OneMedication/SeeMore/Layout";
+import OverviewOneTrainingLayoutP from "./components/Overview/PpaOverview/OneTraining/Layout";
+import OverviewOneMedicationLayoutP from "./components/Overview/PpaOverview/OneMedication/Layout";
+import OverviewOneMedicationLayoutPSeeMore from "./components/Overview/PpaOverview/OneMedication/SeeMore/Layout";
+import OverviewOneTrainingLayoutPSeeMore from "./components/Overview/PpaOverview/OneTraining/SeeMore/Layout";
 
 export const routes = [
   { path: "/overview", component: Overview },
@@ -44,6 +48,22 @@ export const routes = [
   {
     path: "/history/ppa/oneMedication/SeeMore",
     component: OneMedicationLayoutPSeeMore,
+  },
+  {
+    path: "/overview/ppa/oneTraining",
+    component: OverviewOneTrainingLayoutP,
+  },
+  {
+    path: "/overview/ppa/oneMedication",
+    component: OverviewOneMedicationLayoutP,
+  },
+  {
+    path: "/overview/ppa/oneMedication/SeeMore",
+    component: OverviewOneMedicationLayoutPSeeMore,
+  },
+  {
+    path: "/overview/ppa/oneTraining/SeeMore",
+    component: OverviewOneTrainingLayoutPSeeMore,
   },
   {
     path: "/settings",

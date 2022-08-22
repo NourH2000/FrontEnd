@@ -91,30 +91,30 @@ const OneMedicationCenterDatagridSeeMore = () => {
   const [tableData, setTableData] = useState([]);
 
   // fetch the data :
-  const idHistory = location.state.idHistory;
+  const idMax = location.state.idMax;
   const medicament = location.state.medicament;
   //console.log(medicament);
-  //console.log(idHistory);
+  //console.log(idMax);
 
-  // state for wilaya
+   // state for wilaya
 
-  const AllWIlaya  =Array.from(Array(59).keys())
-  //console.log(AllWIlaya);
-  const All = 0
-  const [wilaya, setWilaya] = useState(All);
+   const AllWIlaya  =Array.from(Array(59).keys())
+   //console.log(AllWIlaya);
+   const All = 0
+   const [wilaya, setWilaya] = useState(All);
 
-
-  //const [wilaya, setwilaya] = useState(1);
+   //const [wilaya, setwilaya] = useState(1);
   const handleChange = (event) => {
     setWilaya(event.target.value);
   };
+
   useEffect(() => {
     axios
       .get(
         "http://localhost:8000/DetailsOfMedicationP/CountOneCenterMedication/",
         {
           params: {
-            idEntrainement: idHistory,
+            idEntrainement: idMax,
             region: wilaya,
             NumEnR: medicament,
           },
@@ -123,7 +123,7 @@ const OneMedicationCenterDatagridSeeMore = () => {
       .then((response) => {
         setTableData(response.data);
       });
-  }, [wilaya]);
+  }, [wilaya , idMax ]);
 
   // auto increment ID
   let i = 0;
@@ -144,9 +144,9 @@ const OneMedicationCenterDatagridSeeMore = () => {
         (row?.outside == "-1" && "less than min"),
     };
   });
-  // table of wilaya's
+  // table of region's
 
-  const Allwilaya = Array.from(Array(59).keys());
+  const Allregion = Array.from(Array(59).keys());
   // go to the details of one medication
   //Navigation
   const navigate = useNavigate();
@@ -177,7 +177,7 @@ const OneMedicationCenterDatagridSeeMore = () => {
             variant="h6"
             gutterBottom
           >
-           {wilaya == 0 ?"the suspected medications in all region"  :" the suspected medications in wilaya "+wilaya }
+             {wilaya == 0 ?"the suspected medications in all region"  :" the suspected medications in wilaya "+wilaya }
           </Typography>
 
           <FormControl
@@ -194,7 +194,6 @@ const OneMedicationCenterDatagridSeeMore = () => {
               autoWidth
               sx={{ fontWeight: "bold" }}
             >
-              
               <MenuItem value={0}>ALL</MenuItem>
                 {AllWIlaya.map((row) => (
                 <MenuItem value={row + 1}>{row + 1}</MenuItem>

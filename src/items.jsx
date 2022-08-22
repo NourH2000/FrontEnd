@@ -16,7 +16,7 @@ export const items = [
 
   {
     icon: <PaidIcon />,
-    path: "/overview",
+    path: "/overview/ppa/oneTraining",
     type: "item",
     label: "PPA Price",
   },

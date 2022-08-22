@@ -22,62 +22,30 @@ const columns = [
   {
     field: "id",
     headerName: "Id",
-    width: 100,
+    width: 152,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
     align: "center",
   },
   {
-    field: "fk",
-    headerName: "Prescription",
+    field: "medicament",
+    headerName: "Medications",
     width: 270,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
     align: "center",
   },
   {
-    field: "pharmacie",
-    headerName: "Pharmacy",
-    width: 120,
-    headerClassName: "super-app-theme--header",
-    headerAlign: "center",
-    align: "center",
-  },
-  {
-    field: "prix_ppa",
-    headerName: " PPA price",
-    width: 110,
-    headerClassName: "super-app-theme--header",
-    headerAlign: "center",
-    align: "center",
-  },
-  {
-    field: "prix_max",
-    headerName: "Max price ",
-    width: 110,
-    headerClassName: "super-app-theme--header",
-    headerAlign: "center",
-    align: "center",
-  },
-  {
-    field: "prix_min",
-    headerName: "Min price ",
-    width: 110,
-    headerClassName: "super-app-theme--header",
-    headerAlign: "center",
-    align: "center",
-  },
-  {
-    field: "type",
-    headerName: "Type",
-    width: 150,
+    field: "count",
+    headerName: "Count",
+    width: 270,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
     align: "center",
   },
 ];
 
-const OneMedicationCenterDatagridSeeMore = () => {
+const OneTrainingCenterDatagridSeeMore = () => {
   const ItemStack = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
     ...theme.typography.body2,
@@ -91,39 +59,33 @@ const OneMedicationCenterDatagridSeeMore = () => {
   const [tableData, setTableData] = useState([]);
 
   // fetch the data :
-  const idHistory = location.state.idHistory;
-  const medicament = location.state.medicament;
-  //console.log(medicament);
-  //console.log(idHistory);
-
+  const idMax = location.state.idMax;
   // state for wilaya
 
+  // table of wilaya's
+
   const AllWIlaya  =Array.from(Array(59).keys())
-  //console.log(AllWIlaya);
+  console.log(AllWIlaya);
   const All = 0
   const [wilaya, setWilaya] = useState(All);
-
-
-  //const [wilaya, setwilaya] = useState(1);
   const handleChange = (event) => {
     setWilaya(event.target.value);
   };
   useEffect(() => {
     axios
       .get(
-        "http://localhost:8000/DetailsOfMedicationP/CountOneCenterMedication/",
+        "http://localhost:8000/DetailsOfTrainingP/CountOneCenterMedication/",
         {
           params: {
-            idEntrainement: idHistory,
+            idEntrainement: idMax,
             region: wilaya,
-            NumEnR: medicament,
           },
         }
       )
       .then((response) => {
         setTableData(response.data);
       });
-  }, [wilaya]);
+  }, [wilaya , idMax]);
 
   // auto increment ID
   let i = 0;
@@ -134,19 +96,11 @@ const OneMedicationCenterDatagridSeeMore = () => {
   const HistoryRow = tableData.map((row) => {
     return {
       id: inc(i),
-      fk: row?.fk,
-      pharmacie: row?.codeps,
-      prix_ppa: row?.prix_ppa,
-      prix_max: row?.prix_max,
-      prix_min: row?.prix_min,
-      type:
-        (row?.outside == "1" && "higher than the max") ||
-        (row?.outside == "-1" && "less than min"),
+      medicament: row?.num_enr,
+      count: row?.count,
     };
   });
-  // table of wilaya's
 
-  const Allwilaya = Array.from(Array(59).keys());
   // go to the details of one medication
   //Navigation
   const navigate = useNavigate();
@@ -177,7 +131,7 @@ const OneMedicationCenterDatagridSeeMore = () => {
             variant="h6"
             gutterBottom
           >
-           {wilaya == 0 ?"the suspected medications in all region"  :" the suspected medications in wilaya "+wilaya }
+             {wilaya == 0 ?"the suspected medications in all region"  :" the suspected medications in region "+wilaya }
           </Typography>
 
           <FormControl
@@ -194,12 +148,10 @@ const OneMedicationCenterDatagridSeeMore = () => {
               autoWidth
               sx={{ fontWeight: "bold" }}
             >
-              
               <MenuItem value={0}>ALL</MenuItem>
                 {AllWIlaya.map((row) => (
                 <MenuItem value={row + 1}>{row + 1}</MenuItem>
               ))}
-              
             </Select>
           </FormControl>
         </Stack>
@@ -241,4 +193,4 @@ const OneMedicationCenterDatagridSeeMore = () => {
   );
 };
 
-export default OneMedicationCenterDatagridSeeMore;
+export default OneTrainingCenterDatagridSeeMore;
