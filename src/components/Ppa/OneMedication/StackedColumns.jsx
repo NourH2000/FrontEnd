@@ -257,10 +257,10 @@ const OneMedicationStackedColumns = () => {
             variant="h6"
             gutterBottom
           >
-            TP and TS
+            TP et TS
           </Typography>
           <Chip
-            label=" See more"
+            label="Details"
             sx={{ marginTop: "1%" }}
             variant="outlined"
             //onClick={}

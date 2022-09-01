@@ -41,10 +41,10 @@ const OneTrainingLayoutP = () => {
     <Typography
           color="#113f67"
           sx={{  marginBottom: "2%", marginTop: "2%" }}
-          variant="h9"
+          variant="h6"
           gutterBottom
         >
-         Traitement Prix ppa {idHistory}
+         Traitement Prix ppa <strong>{idHistory}</strong>
         </Typography>
       <Stack spacing={2} sx={{ width: "100%" }}>
         <ItemStack elevation={0} sx={{ backgroundColor: "transparent" }}>

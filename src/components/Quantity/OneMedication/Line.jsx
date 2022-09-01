@@ -165,7 +165,7 @@ const OneMedicationLine = () => {
 
           </Typography>
           <Chip
-            label=" See more"
+            label="Details"
             sx={{ marginTop: "1%" }}
             variant="outlined"
             onClick={navigateToOneMedicationSeeMore}

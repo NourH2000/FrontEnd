@@ -29,44 +29,30 @@ const columns = [
   },
   {
     field: "fk",
-    headerName: "Prescription",
-    width: 270,
+    headerName: "Ordonnance",
+    width: 350,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
     align: "center",
   },
   {
     field: "pharmacie",
-    headerName: "Pharmacy",
-    width: 150,
+    headerName: "Pharmacie",
+    width: 250,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
     align: "center",
   },
   {
     field: "quantityPrescripted",
-    headerName: " Prescripted Quantity",
+    headerName: "Quantité prescrite",
     width: 150,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
     align: "center",
   },
-  {
-    field: "quantityPridected",
-    headerName: "predicted Quantity ",
-    width: 150,
-    headerClassName: "super-app-theme--header",
-    headerAlign: "center",
-    align: "center",
-  },
-  {
-    field: "quantityRejected",
-    headerName: " Rejected Quantity ",
-    width: 150,
-    headerClassName: "super-app-theme--header",
-    headerAlign: "center",
-    align: "center",
-  },
+  
+  
 ];
 
 const OneTrainingCenterDatagridSeeMore = () => {
@@ -85,11 +71,17 @@ const OneTrainingCenterDatagridSeeMore = () => {
   // fetch the data :
   const idHistory = location.state.idHistory;
   const medicament = location.state.medicament;
-  console.log(medicament);
-  console.log(idHistory);
+  //console.log(medicament);
+  //console.log(idHistory);
 
-  // state for region
-  const [region, setregion] = useState(1);
+  // state for wilaya
+
+  const AllWIlaya  =Array.from(Array(59).keys())
+  //console.log(AllWIlaya);
+  const All = 0
+  const [wilaya, setWilaya] = useState(All);
+
+
   const handleChange = (event) => {
     setregion(event.target.value);
   };
@@ -100,7 +92,7 @@ const OneTrainingCenterDatagridSeeMore = () => {
         {
           params: {
             idEntrainement: idHistory,
-            region: region,
+            region: wilaya,
             NumEnR: medicament,
           },
         }
@@ -108,7 +100,7 @@ const OneTrainingCenterDatagridSeeMore = () => {
       .then((response) => {
         setTableData(response.data);
       });
-  }, [region]);
+  }, [wilaya]);
 
   // auto increment ID
   let i = 0;
@@ -122,13 +114,12 @@ const OneTrainingCenterDatagridSeeMore = () => {
       fk: row?.fk,
       pharmacie: row?.codeps,
       quantityPrescripted: row?.quantite_med,
-      quantityPridected: row?.quantite_predicted,
-      quantityRejected: row?.qte_rejet_predicted,
+
     };
   });
-  // table of region's
+  // table of wilaya's
 
-  const Allregion = Array.from(Array(58).keys());
+  const Allwilaya = Array.from(Array(59).keys());
   // go to the details of one medication
   //Navigation
   const navigate = useNavigate();
@@ -159,26 +150,31 @@ const OneTrainingCenterDatagridSeeMore = () => {
             variant="h6"
             gutterBottom
           >
-            the suspected medications in region {region}
+            {wilaya == 0 ?"Tous les médicaments suspects dans toutes les régions"  :" Les médicaments suspects dans la région "+wilaya }
           </Typography>
+
+
 
           <FormControl
             variant="standard"
             sx={{ m: 1, minWidth: 20, marginBottom: "%" }}
           >
             <Select
-              defaultValue={5}
+              defaultValue={All}
               labelId="demo-simple-select-standard-label"
               id="demo-simple-select-standard"
-              value={region}
+              value={wilaya}
               onChange={handleChange}
               label="Number"
               autoWidth
               sx={{ fontWeight: "bold" }}
             >
-              {Allregion.map((row) => (
+              
+              <MenuItem value={0}>ALL</MenuItem>
+                {AllWIlaya.map((row) => (
                 <MenuItem value={row + 1}>{row + 1}</MenuItem>
               ))}
+              
             </Select>
           </FormControl>
         </Stack>

@@ -47,10 +47,10 @@ const OneTrainingLayoutQSeeMore = ({ DetailsTable }) => {
     <Typography
           color="#113f67"
           sx={{  marginBottom: "2%", marginTop: "2%" }}
-          variant="h9"
+          variant="h6"
           gutterBottom
         >
-         Traitement quantité {idHistory}
+         Traitement quantité <strong>{idHistory}</strong>
         </Typography>
     <Stack spacing={1} sx={{ width: "100%" }}>
       <ItemStack sx={{ backgroundColor: "transparent" }}>

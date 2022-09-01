@@ -12,7 +12,8 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import Form from "./Form";
+import FormTreatement from "./FormTreatement";
+import FormTraining from "./FormTraining"
 
 const HistoryLayoutQ = () => {
   const ItemStack = styled(Paper)(({ theme }) => ({
@@ -42,12 +43,18 @@ const HistoryLayoutQ = () => {
             </ItemGrid>
           </Grid>
           <Grid item xs={3}>
-            <ItemGrid elevation={3}>
-              <Form />
+            <ItemGrid elevation={3} sx={{  marginBottom : "7%"}}>
+              <FormTreatement />
+            </ItemGrid>
+            <ItemGrid elevation={0} sx ={{  backgroundColor : "transparent"   }}>
+              <FormTraining />
             </ItemGrid>
           </Grid>
+          
         </Grid>
       </ItemStack>
+
+      
     </Stack>
   );
 };

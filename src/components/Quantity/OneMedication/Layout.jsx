@@ -22,6 +22,7 @@ import OneMedicationGenderCards from "./Cards";
 import OneMedicationColumn from "./Column";
 import OneMedicationDoubleColumn from "./DoubleColumn";
 import OneMedicationLine from "./Line";
+import OneMedicationColumnTS from "./ColumnTS"
 const OneMedicationLayoutQ = () => {
   // recupérer l'id de historique
   const location = useLocation();
@@ -44,6 +45,15 @@ const OneMedicationLayoutQ = () => {
   }));
 
   return (
+    <>
+    <Typography
+          color="#113f67"
+          sx={{  marginBottom: "2%", marginTop: "2%" }}
+          variant="h6"
+          gutterBottom
+        >
+         Traitement quantité  <strong>{idHistory}</strong>
+        </Typography>
     <Stack spacing={1} sx={{ width: "100%" }}>
       <ItemStack elevation={0} sx={{ backgroundColor: "transparent" }}>
         <Grid
@@ -55,7 +65,7 @@ const OneMedicationLayoutQ = () => {
           padding={0}
           justifyContent="space-between"
         >
-          <Grid item xs={2}>
+          <Grid item xs={3}>
             <Stack spacing={1} sx={{ width: "100%" }}>
               <ItemStack elevation={0} sx={{ backgroundColor: "transparent" }}>
                 <OneMedicationGenderCards type={"T"} />
@@ -69,9 +79,9 @@ const OneMedicationLayoutQ = () => {
             </Stack>
           </Grid>
 
-          <Grid item xs={5}>
+          <Grid item xs={3}>
             <ItemGrid xs={9} sx={{ padding: "3%" }}>
-              {/*<OneMedicationDoubleColumn />*/}
+              {<OneMedicationColumnTS />}
             </ItemGrid>
           </Grid>
           <Grid item xs={4}>
@@ -106,7 +116,7 @@ const OneMedicationLayoutQ = () => {
           </Grid>
           <Grid item xs={7.5} sx={{ backgroundColor: "transparent" }}>
             <ItemGrid sx={{ padding: "3%" }}>
-              {/*<OneMedicationArea/>*/}
+              
 
               <OneMedicationBarHorizontal />
             </ItemGrid>
@@ -127,7 +137,7 @@ const OneMedicationLayoutQ = () => {
           </Grid>
         </Grid>
       </ItemStack>
-    </Stack>
+    </Stack></>
   );
 };
 

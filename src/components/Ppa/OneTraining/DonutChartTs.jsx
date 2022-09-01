@@ -82,10 +82,10 @@ const OneTrainingDonutChartTs = () => {
 
         groupedData.map((data, key) => {
           switch(data.key) {
-            case 'O':
+            case '1':
               data.key = "traitement specifique"
               break;
-            case 'N':
+            case '0':
               data.key = " Hors traitement specifique"
               break;
             default:

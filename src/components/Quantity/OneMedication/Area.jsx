@@ -83,7 +83,7 @@ const OneMedicationArea = () => {
             The Result By center
           </Typography>
           <Chip
-            label=" See more"
+            label="Details"
             sx={{ marginTop: "1%" }}
             variant="outlined"
             onClick={handleClick}

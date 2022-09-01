@@ -19,7 +19,7 @@ const columns = [
   },
   {
     field: "num_enr",
-    headerName: "Insured Number",
+    headerName: "N° d'assuré",
     width: 270,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
@@ -131,7 +131,7 @@ const OneTrainingAssureDatagridOneInsured = () => {
           variant="h6"
           gutterBottom
         >
-          All suspected insured for training : {idHistory}
+          Tous les assurés suspectés  : {idHistory}
         </Typography>
         <Divider />
       </ItemStack>

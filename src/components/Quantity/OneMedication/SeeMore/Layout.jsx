@@ -43,6 +43,15 @@ const OneMedicationLayoutQSeeMore = ({ DetailsTable }) => {
   }));
 
   return (
+    <>
+    <Typography
+          color="#113f67"
+          sx={{  marginBottom: "2%", marginTop: "2%" }}
+          variant="h6"
+          gutterBottom
+        >
+         Traitement quantité  <strong>{idHistory}</strong>
+        </Typography>
     <Stack spacing={1} sx={{ width: "100%" }}>
       <ItemStack sx={{ backgroundColor: "transparent" }}>
         <Grid container spacing={2}>
@@ -57,13 +66,13 @@ const OneMedicationLayoutQSeeMore = ({ DetailsTable }) => {
 
       <ItemStack sx={{ backgroundColor: "transparent" }}>
         <Grid container spacing={2}>
-          <Grid item spacing={0} xs={4}>
+          <Grid item spacing={0} xs={5}>
             <ItemGrid xs={9} sx={{ padding: "3%", height: 800 }}>
               {" "}
               <OneTrainingPharmacyDatagridSeeMore />{" "}
             </ItemGrid>
           </Grid>
-          <Grid item spacing={0} xs={8}>
+          <Grid item spacing={0} xs={7}>
             <ItemGrid xs={9} sx={{ padding: "3%", height: 800 }}>
               {" "}
               <OneTrainingCenterDatagridSeeMore />{" "}
@@ -72,6 +81,7 @@ const OneMedicationLayoutQSeeMore = ({ DetailsTable }) => {
         </Grid>
       </ItemStack>
     </Stack>
+    </>
   );
 };
 

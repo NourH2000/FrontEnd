@@ -111,7 +111,7 @@ const OneMedicationDoubleColumn = () => {
           >
             les 5 pharmacies les plus suspectes
           </Typography>
-          <Chip label=" See more" sx={{ marginTop: "1%" }} variant="outlined" />
+          <Chip label="Details" sx={{ marginTop: "1%" }} variant="outlined" />
         </Stack>
 
         <Divider />

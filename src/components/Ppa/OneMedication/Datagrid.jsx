@@ -17,7 +17,7 @@ const columns = [
   },
   {
     field: "prescription",
-    headerName: "prescription",
+    headerName: "Ordonnance",
     width: 263,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
@@ -33,7 +33,7 @@ const columns = [
   },
   {
     field: "prix_min",
-    headerName: "Min price",
+    headerName: "Prix minumum",
     width: 150,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
@@ -41,7 +41,7 @@ const columns = [
   },
   {
     field: "prix_max",
-    headerName: "Max price",
+    headerName: "Prix maximum",
     width: 150,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
@@ -49,7 +49,7 @@ const columns = [
   },
   {
     field: "prix_ppa",
-    headerName: " PPA price ",
+    headerName: "Prix PPA",
     width: 170,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
@@ -58,7 +58,7 @@ const columns = [
 
   {
     field: "pharmacie",
-    headerName: "Pharmacy",
+    headerName: "Pharmacie",
     width: 150,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
@@ -138,14 +138,14 @@ const OneMedicationdataGrid = () => {
       prix_ppa: row?.prix_ppa,
       pharmacie: row?.codeps,
       type:
-        (row?.outside == "1" && "higher than the max") ||
-        (row?.outside == "-1" && "less than min"),
+        (row?.outside == "1" && "Supérieur au maximum") ||
+        (row?.outside == "-1" && "Inférieur au minimum"),
       ts: 
-        (row?.ts == "O" && "Yes") ||
-        (row?.ts == "N" && "No"),
+        (row?.ts == "0" && "OUi") ||
+        (row?.ts == "1" && "Non"),
       tier_payant: 
-        (row?.tier_payant == "O" && "Yes") ||
-        (row?.tier_payant == "N" && "No"),
+        (row?.tier_payant == "0" && "OUi") ||
+        (row?.tier_payant == "1" && "Non"),
     };
   });
 
@@ -165,7 +165,7 @@ const OneMedicationdataGrid = () => {
           variant="h6"
           gutterBottom
         >
-          Training Number : {idHistory} , Medication number : {medicament}
+          Medicament : {medicament}
         </Typography>
         <Divider />
       </ItemStack>

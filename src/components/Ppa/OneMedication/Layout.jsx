@@ -40,7 +40,15 @@ const OneMedicationLayoutP = () => {
     color: theme.palette.text.secondary,
   }));
 
-  return (
+  return (<>
+  <Typography
+          color="#113f67"
+          sx={{  marginBottom: "2%", marginTop: "2%" }}
+          variant="h6"
+          gutterBottom
+        >
+         Traitement Prix ppa <strong>{idHistory}</strong>
+        </Typography>
     <Stack spacing={1} sx={{ width: "100%" }}>
       <ItemStack elevation={0} sx={{ backgroundColor: "transparent" }}>
         <Grid container sx={12} spacing={2}>
@@ -99,6 +107,7 @@ const OneMedicationLayoutP = () => {
         </Grid>
       </ItemStack>
     </Stack>
+    </>
   );
 };
 

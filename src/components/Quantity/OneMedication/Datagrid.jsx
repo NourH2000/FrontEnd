@@ -26,7 +26,7 @@ const columns = [
   {
     field: "nassuré",
     headerName: "N° d'assuré ",
-    width: 150,
+    width: 200,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
     align: "center",
@@ -58,8 +58,8 @@ const columns = [
   },
   {
     field: "pharmacie",
-    headerName: "Pharmacy",
-    width: 200,
+    headerName: "Pharmacie",
+    width: 240,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
     align: "center",

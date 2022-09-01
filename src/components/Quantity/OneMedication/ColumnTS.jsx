@@ -6,7 +6,7 @@ import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { gridColumnsSelector } from "@mui/x-data-grid";
 
-const OneMedicationColumn = () => {
+const OneMedicationColumnTS = () => {
   // item stack
   const ItemStack = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -25,30 +25,30 @@ const OneMedicationColumn = () => {
   const medicament = location.state.medicament;
 
   // initial values
-  const [age, setAge] = useState([]);
+  const [ts, setts] = useState([]);
   const [count, setCount] = useState([]);
 
-  // function to group the data by age and count em :
+  // function to group the data by ts and count em :
   const group = function (array) {
     var r = [],
       o = {};
     array.forEach(function (a) {
-      if (!o[a.age]) {
-        o[a.age] = { key: a.age, value: 0 };
-        r.push(o[a.age]);
+      if (!o[a.ts]) {
+        o[a.ts] = { key: a.ts, value: 0 };
+        r.push(o[a.ts]);
       }
-      o[a.age].value++;
+      o[a.ts].value++;
     });
     return r;
   };
 
   useEffect(() => {
     // get the medication suspected with count
-    const resultage = [];
+    const resultts = [];
     const resultcount = [];
     axios
       .get(
-        "http://localhost:8000/DetailsOfMedicationQ/CountAgeOneMedication/",
+        "http://localhost:8000/DetailsOfMedicationQ/TsOneMedication/",
         {
           params: {
             idEntrainement: idHistory,
@@ -63,14 +63,14 @@ const OneMedicationColumn = () => {
         // group the data :
         const groupedData = group(data);
 
-        // push the data into a table of age and count
+        // push the data into a table of ts and count
         groupedData.map((data, key) => {
-          resultage.push(data.key);
+          resultts.push(data.key);
           resultcount.push(data.value);
         });
 
         // push the result into the series of chart
-        setAge(resultage);
+        setts(resultts);
         setCount(resultcount);
       });
   }, []);
@@ -105,7 +105,7 @@ const OneMedicationColumn = () => {
       },
 
       xaxis: {
-        categories: age,
+        categories: ts,
         position: "top",
         axisBorder: {
           show: false,
@@ -157,7 +157,7 @@ const OneMedicationColumn = () => {
             variant="h6"
             gutterBottom
           >
-            Le taux de fraude par catégorie d'âge
+            TS
           </Typography>
           <Chip
             label="Details"
@@ -190,4 +190,4 @@ const OneMedicationColumn = () => {
   );
 };
 
-export default OneMedicationColumn;
+export default OneMedicationColumnTS;

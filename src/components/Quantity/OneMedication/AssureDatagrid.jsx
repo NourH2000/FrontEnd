@@ -165,10 +165,10 @@ const OneMedicationAssureDatagrid = () => {
             variant="h6"
             gutterBottom
           >
-            the 5 insured most suspicious
+            les 5 assurés les plus suspects
           </Typography>
           <Chip
-            label=" See more"
+            label="Details"
             variant="outlined"
             sx={{ marginTop: "2%" }}
             onClick={navigateToOneMedicationSeeMore}

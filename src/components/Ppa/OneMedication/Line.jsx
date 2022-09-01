@@ -161,10 +161,10 @@ const OneMedicationLine = () => {
             variant="h6"
             gutterBottom
           >
-            The fraud rate in each wilaya
+            Le taux de fraude dans chaque wilaya
           </Typography>
           <Chip
-            label=" See more"
+            label="Details"
             sx={{ marginTop: "1%" }}
             variant="outlined"
             onClick={navigateToOneMedicationSeeMore}

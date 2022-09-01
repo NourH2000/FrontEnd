@@ -29,7 +29,7 @@ const columns = [
   },
   {
     field: "fk",
-    headerName: "Prescription",
+    headerName: "Ordonnance",
     width: 270,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
@@ -37,7 +37,7 @@ const columns = [
   },
   {
     field: "pharmacie",
-    headerName: "Pharmacy",
+    headerName: "Pharmacie",
     width: 120,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
@@ -45,7 +45,7 @@ const columns = [
   },
   {
     field: "prix_ppa",
-    headerName: " PPA price",
+    headerName: "Prix PPA",
     width: 110,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
@@ -53,7 +53,7 @@ const columns = [
   },
   {
     field: "prix_max",
-    headerName: "Max price ",
+    headerName: "Minimum prix",
     width: 110,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
@@ -61,7 +61,7 @@ const columns = [
   },
   {
     field: "prix_min",
-    headerName: "Min price ",
+    headerName: "Maximum prix",
     width: 110,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
@@ -140,8 +140,8 @@ const OneMedicationCenterDatagridSeeMore = () => {
       prix_max: row?.prix_max,
       prix_min: row?.prix_min,
       type:
-        (row?.outside == "1" && "higher than the max") ||
-        (row?.outside == "-1" && "less than min"),
+        (row?.outside == "1" && "Supérieur au maximum") ||
+        (row?.outside == "-1" && "Inférieur au minimum"),
     };
   });
   // table of wilaya's
@@ -177,7 +177,7 @@ const OneMedicationCenterDatagridSeeMore = () => {
             variant="h6"
             gutterBottom
           >
-           {wilaya == 0 ?"the suspected medications in all region"  :" the suspected medications in wilaya "+wilaya }
+           {wilaya == 0 ?"Les médicaments suspects dans toutes les régions"  :" Les médicaments suspects dans la région "+wilaya }
           </Typography>
 
           <FormControl

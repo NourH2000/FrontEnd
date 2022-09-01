@@ -20,7 +20,7 @@ import axios from "axios";
 import { styled } from "@mui/material/styles";
 import RotateLoader from "react-spinners/RotateLoader";
 
-const Form = () => {
+const FormTreatement = () => {
   // item stack
   const ItemStack = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -134,7 +134,7 @@ const Form = () => {
          variant="h6"
          gutterBottom
        >
-         Nouveau entrainement
+         Nouveau Traitement
        </Typography>
        <Divider />
      </ItemStack>
@@ -256,4 +256,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default FormTreatement;
