@@ -108,6 +108,8 @@ const MenuAppBar = () => {
       >
         {notifications?.map((notification) => {
           <MenuItem onClick={handleClose}>{notification.msg}</MenuItem>;
+          <MenuItem >hello</MenuItem>;
+          
         })}
       </Menu>
       <IconButton

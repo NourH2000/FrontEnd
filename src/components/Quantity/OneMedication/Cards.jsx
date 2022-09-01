@@ -38,11 +38,20 @@ const OneMedicationGenderCards = ({ type }) => {
 
   // cards params and
   const [result, setResult] = useState(0);
+  if (type === "F") {
+      
+    var TypeRequest = 0 ;
+  }
+  if (type === "M") {
+   
+    var TypeRequest = 1;
+  }
 
   const link = (type) => {
     if (type === "T") {
       return "http://localhost:8000/DetailsOfMedicationQ/CountMedication/";
     } else {
+      
       return "http://localhost:8000/DetailsOfMedicationQ/CountGenderOneMedication/";
     }
   };
@@ -54,7 +63,7 @@ const OneMedicationGenderCards = ({ type }) => {
         params: {
           idEntrainement: idHistory,
           numEnr: medicament,
-          gender: type,
+          gender: TypeRequest,
         },
       })
       .then((response) => {
@@ -66,10 +75,12 @@ const OneMedicationGenderCards = ({ type }) => {
   // title of cards
   const title = (type) => {
     if (type === "F") {
-      return " Female";
+      
+      return "Femelle";
     }
     if (type === "M") {
-      return "Male";
+     
+      return "mâle";
     }
     if (type === "T") {
       return "Tout";

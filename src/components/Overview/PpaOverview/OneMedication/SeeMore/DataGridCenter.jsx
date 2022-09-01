@@ -37,7 +37,7 @@ const columns = [
   },
   {
     field: "pharmacie",
-    headerName: "Pharmacy",
+    headerName: "Pharmacie",
     width: 120,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
@@ -45,7 +45,7 @@ const columns = [
   },
   {
     field: "prix_ppa",
-    headerName: " PPA price",
+    headerName: "Prix ppa",
     width: 110,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
@@ -53,7 +53,7 @@ const columns = [
   },
   {
     field: "prix_max",
-    headerName: "Max price ",
+    headerName: "Prix max",
     width: 110,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
@@ -61,7 +61,7 @@ const columns = [
   },
   {
     field: "prix_min",
-    headerName: "Min price ",
+    headerName: "Prix min",
     width: 110,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
@@ -177,8 +177,10 @@ const OneMedicationCenterDatagridSeeMore = () => {
             variant="h6"
             gutterBottom
           >
-             {wilaya == 0 ?"the suspected medications in all region"  :" the suspected medications in wilaya "+wilaya }
+             {wilaya == 0 ?"Les médicaments suspects dans toutes les régions"  :"Les médicaments suspects dans la wilaya "+wilaya }
           </Typography>
+          
+
 
           <FormControl
             variant="standard"

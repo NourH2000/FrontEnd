@@ -19,7 +19,7 @@ const columns = [
   },
   {
     field: "num_enr",
-    headerName: "Insured Number",
+    headerName: "N° d'assuré",
     width: 270,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",

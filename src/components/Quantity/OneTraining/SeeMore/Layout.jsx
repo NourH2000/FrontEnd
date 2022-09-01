@@ -43,6 +43,15 @@ const OneTrainingLayoutQSeeMore = ({ DetailsTable }) => {
   }));
 
   return (
+    <>
+    <Typography
+          color="#113f67"
+          sx={{  marginBottom: "2%", marginTop: "2%" }}
+          variant="h9"
+          gutterBottom
+        >
+         Traitement quantité {idHistory}
+        </Typography>
     <Stack spacing={1} sx={{ width: "100%" }}>
       <ItemStack sx={{ backgroundColor: "transparent" }}>
         <Grid container spacing={2}>
@@ -71,7 +80,7 @@ const OneTrainingLayoutQSeeMore = ({ DetailsTable }) => {
           </Grid>
         </Grid>
       </ItemStack>
-    </Stack>
+    </Stack></>
   );
 };
 

@@ -29,7 +29,7 @@ const columns = [
   },
   {
     field: "medicament",
-    headerName: "Medications",
+    headerName: "Médicament",
     width: 270,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
@@ -60,11 +60,18 @@ const OneTrainingCenterDatagridSeeMore = () => {
 
   // fetch the data :
   const idHistory = location.state.idHistory;
-  // state for region
-  const [region, setregion] = useState(1);
+  // state for wilaya
+
+  // table of wilaya's
+
+  const AllWIlaya  =Array.from(Array(59).keys())
+  //console.log(AllWIlaya);
+  const All = 0
+  const [wilaya, setWilaya] = useState(All);
   const handleChange = (event) => {
-    setregion(event.target.value);
+    setWilaya(event.target.value);
   };
+
   useEffect(() => {
     axios
       .get(
@@ -72,14 +79,14 @@ const OneTrainingCenterDatagridSeeMore = () => {
         {
           params: {
             idEntrainement: idHistory,
-            region: region,
+            region: wilaya,
           },
         }
       )
       .then((response) => {
         setTableData(response.data);
       });
-  }, [region]);
+  }, [wilaya]);
 
   // auto increment ID
   let i = 0;
@@ -106,7 +113,6 @@ const OneTrainingCenterDatagridSeeMore = () => {
 
     <Layout />;
   };
-
   const [pageSize, setPageSize] = useState(20);
   return (
     <Stack
@@ -127,7 +133,7 @@ const OneTrainingCenterDatagridSeeMore = () => {
             variant="h6"
             gutterBottom
           >
-            the suspected medications in region {region}
+             {wilaya == 0 ?"Les médicaments suspects dans toutes les régions"  :"Les médicaments suspects dans la région "+wilaya }
           </Typography>
 
           <FormControl
@@ -135,16 +141,17 @@ const OneTrainingCenterDatagridSeeMore = () => {
             sx={{ m: 1, minWidth: 20, marginBottom: "%" }}
           >
             <Select
-              defaultValue={5}
+              defaultValue={All}
               labelId="demo-simple-select-standard-label"
               id="demo-simple-select-standard"
-              value={region}
+              value={wilaya}
               onChange={handleChange}
               label="Number"
               autoWidth
               sx={{ fontWeight: "bold" }}
             >
-              {Allregion.map((row) => (
+              <MenuItem value={0}>ALL</MenuItem>
+                {AllWIlaya.map((row) => (
                 <MenuItem value={row + 1}>{row + 1}</MenuItem>
               ))}
             </Select>

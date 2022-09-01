@@ -51,7 +51,14 @@ const OneTrainingLayoutQ = () => {
   }));
 
   return (
-    <>
+    <><Typography
+    color="#113f67"
+    sx={{  marginBottom: "2%", marginTop: "2%" }}
+    variant="h9"
+    gutterBottom
+  >
+   Traitement quantité {idHistory}
+  </Typography>
       <Stack spacing={2} sx={{ width: "100%" }}>
         <ItemStack elevation={0} sx={{ backgroundColor: "transparent" }}>
           <Grid

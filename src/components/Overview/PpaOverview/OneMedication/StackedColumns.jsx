@@ -161,7 +161,7 @@ const OneMedicationStackedColumns = () => {
               data.key = " Hors traitement specifique"
               break;
             default:
-              data.key = "Undefined"
+              data.key = "Indéfini"
           } 
           resultTs.push(data.key);
           resultcount.push(data.value);
@@ -258,10 +258,10 @@ const OneMedicationStackedColumns = () => {
             variant="h6"
             gutterBottom
           >
-            TP and TS
+            TP et TS
           </Typography>
           <Chip
-            label=" See more"
+            label="Details"
             sx={{ marginTop: "1%" }}
             variant="outlined"
             //onClick={}

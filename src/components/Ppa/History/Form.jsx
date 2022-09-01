@@ -51,7 +51,7 @@ const Form = () => {
   // get data and call the model :
   const data = { date_debut: valueOne, date_fin: valueTwo };
   const callModel = async (data) => {
-    const res = await axios.post("http://localhost:8000/models/ppamodel", data);
+    const res = await axios.post("http://localhost:8000/models/PrixppaTraitement", data);
   };
 
   // test is this training exist or not ( if it exists => error (snackBar) , else => call the model )
@@ -122,7 +122,7 @@ const Form = () => {
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
       >
         <Alert onClose={(event, reason) => setOpen(false)} severity="error">
-          <strong>This interval of date has already trained </strong>
+          <strong>Cet intervalle de date a été déjà traité</strong>
         </Alert>
       </Snackbar> 
        <ItemStack elevation={0} sx={{ textAlign: "left" }}>
@@ -132,7 +132,7 @@ const Form = () => {
          variant="h6"
          gutterBottom
        >
-         New training
+         Nouveau entrainement
        </Typography>
        <Divider />
      </ItemStack>
@@ -209,7 +209,7 @@ const Form = () => {
    >
      <Stack direction="row" justifyContent="space-between">
        <Button variant="text" endIcon={<SendIcon />} onClick={test}>
-         Send
+         Envoyer
        </Button>
        <IconButton aria-label="delete" size="large" onClick={ClearAll}>
          <ClearAllIcon fontSize="inherit" />
@@ -229,7 +229,7 @@ const Form = () => {
       variant="h6"
       gutterBottom
     >
-      New training
+      Nouveau entrainement
     </Typography>
     <Divider />
   </ItemStack><ItemStack

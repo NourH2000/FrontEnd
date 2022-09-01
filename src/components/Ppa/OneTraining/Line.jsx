@@ -133,6 +133,8 @@ const OneTrainingLine = () => {
   };
 
   return (
+    <>
+    
     <Stack
       direction="column"
       alignItems="stretch"
@@ -154,10 +156,10 @@ const OneTrainingLine = () => {
             variant="h6"
             gutterBottom
           >
-            The fraud rate in each region
+            Le taux de fraude dans chaque région
           </Typography>
           <Chip
-            label=" See more"
+            label="Details"
             sx={{ marginTop: "1%" }}
             variant="outlined"
             onClick={navigateToOneTrainingSeeMore}
@@ -183,7 +185,7 @@ const OneTrainingLine = () => {
           series={option.series}
         />
       </ItemStack>
-    </Stack>
+    </Stack></>
   );
 };
 

@@ -22,7 +22,7 @@ import {
 const OneTrainingLayoutPSeeMore = ({ DetailsTable }) => {
   // recupérer l'id de historique
   const location = useLocation();
-  //const idHistory = location.state.idHistory;
+  const idMax = location.state.idMax;
 
   const ItemStack = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -42,6 +42,15 @@ const OneTrainingLayoutPSeeMore = ({ DetailsTable }) => {
   }));
 
   return (
+    <>
+    <Typography
+          color="#113f67"
+          sx={{  marginBottom: "2%", marginTop: "2%" }}
+          variant="h9"
+          gutterBottom
+        >
+        Traitement Prix ppa {idMax}
+        </Typography>
     <Stack spacing={1} sx={{ width: "100%" }}>
       <ItemStack sx={{ backgroundColor: "transparent" }}>
         <Grid container spacing={10}>
@@ -59,7 +68,7 @@ const OneTrainingLayoutPSeeMore = ({ DetailsTable }) => {
           </Grid>
         </Grid>
       </ItemStack>
-    </Stack>
+    </Stack></>
   );
 };
 

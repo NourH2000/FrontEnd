@@ -157,7 +157,7 @@ const OneMedicationColumn = () => {
             variant="h6"
             gutterBottom
           >
-            The fraud rate in categorie of age
+            Le taux de fraude par catégorie d'âge
           </Typography>
           <Chip
             label=" See more"

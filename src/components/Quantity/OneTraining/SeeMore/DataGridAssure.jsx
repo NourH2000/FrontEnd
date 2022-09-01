@@ -20,7 +20,7 @@ const columns = [
   },
   {
     field: "no_assure",
-    headerName: "Insured Number",
+    headerName: "N° d'assuré",
     width: 270,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
@@ -36,7 +36,7 @@ const columns = [
   },
   {
     field: "gender",
-    headerName: "Gender",
+    headerName: "Genre",
     width: 200,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
@@ -52,7 +52,7 @@ const columns = [
   },
   {
     field: "region",
-    headerName: "region",
+    headerName: "Region",
     width: 200,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
@@ -141,7 +141,7 @@ const OneTrainingAssureDatagridSeeMore = () => {
           variant="h6"
           gutterBottom
         >
-          All suspected insured for training : {idHistory}
+          Tous les assurés suspectés
         </Typography>
         <Divider />
       </ItemStack>

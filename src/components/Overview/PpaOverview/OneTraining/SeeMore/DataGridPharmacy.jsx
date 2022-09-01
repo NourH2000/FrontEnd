@@ -19,7 +19,7 @@ const columns = [
   },
   {
     field: "codeps",
-    headerName: "Pharmacy",
+    headerName: "Pharmacie",
     width: 270,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
@@ -144,7 +144,7 @@ const OneTrainingPharmacyDatagridSeeMore = () => {
           variant="h6"
           gutterBottom
         >
-          All suspected pharmacy for training : {idMax}
+          Toutes les pharmacies suspectes
         </Typography>
         <Divider />
       </ItemStack>

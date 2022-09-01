@@ -84,10 +84,10 @@ const OneTrainingDonutChartTP = () => {
         groupedData.map((data, key) => {
         
           switch(data.key) {
-            case 'O':
+            case '0':
               data.key = "Tier payant"
               break;
-            case 'N':
+            case '1':
               data.key = " Hors tier payant"
               break;
             default:

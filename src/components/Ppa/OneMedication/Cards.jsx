@@ -66,13 +66,13 @@ const OneMedicationTypeCards = ({ type }) => {
   // title of cards
   const title = (type) => {
     if (type === "-1") {
-      return " less than min";
+      return "Inférieur au minimum";
     }
     if (type === "1") {
-      return "higher than the max";
+      return "Supérieur au maximum";
     }
     if (type === "all") {
-      return "All";
+      return "Tout";
     }
   };
 

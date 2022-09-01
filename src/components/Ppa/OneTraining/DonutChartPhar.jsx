@@ -118,7 +118,7 @@ const OneTrainingDonutChartPhar = () => {
           variant="h6"
           gutterBottom
         >
-        Traitement specifique
+        Pharmacies
         </Typography>
 
         

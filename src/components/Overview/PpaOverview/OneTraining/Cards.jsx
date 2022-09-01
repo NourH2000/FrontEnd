@@ -70,10 +70,10 @@ const Cards = ({ type , idMax }) => {
   // title of cards
   const title = (type) => {
     if (type === "Medicament") {
-      return " Nombre of medication suspected";
+      return " Nombre de médicaments suspectés";
     }
     if (type === "Cas") {
-      return "Total of case suspected";
+      return "Total des cas suspects";
     }
   };
 

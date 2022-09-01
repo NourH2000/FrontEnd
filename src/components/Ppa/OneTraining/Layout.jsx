@@ -6,7 +6,7 @@ import OneTrainingdataGrid from "./Datagrid";
 import DonutChart from "./DonutChart";
 import OneTrainingColumn from "./Column";
 import OneTrainingBarHorizontal from "./BarHorizontal";
-import { Grid, Paper, Stack } from "@mui/material";
+import { Grid, Paper, Stack, Typography } from "@mui/material";
 import OneTrainingLine from "./Line";
 import OneTrainingDonutChartTs from "./DonutChartTs"
 import OneTrainingDonutChartTP from "./DonutChartTP"
@@ -38,6 +38,14 @@ const OneTrainingLayoutP = () => {
 
   return (
     <>
+    <Typography
+          color="#113f67"
+          sx={{  marginBottom: "2%", marginTop: "2%" }}
+          variant="h9"
+          gutterBottom
+        >
+         Traitement Prix ppa {idHistory}
+        </Typography>
       <Stack spacing={2} sx={{ width: "100%" }}>
         <ItemStack elevation={0} sx={{ backgroundColor: "transparent" }}>
           <Grid

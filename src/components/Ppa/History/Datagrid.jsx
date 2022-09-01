@@ -29,7 +29,7 @@ const columns = [
   },
   {
     field: "date",
-    headerName: "Date of Training",
+    headerName: "Date de traitement",
     width: 220,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
@@ -59,9 +59,9 @@ const columns = [
     width: 320,
     cellClassName: (params) => {
       return clsx("super-app", {
-        Success: params.value == "Success",
-        Failed: params.value == "Failed",
-        Processing: params.value == "Processing",
+        Succès: params.value == "Succès",
+        Échec: params.value == "Échec",
+        En_cour: params.value == "En cour ...",
       });
     },
     headerClassName: "super-app-theme--header",
@@ -110,9 +110,9 @@ const HistoryDatagrid = () => {
       date_de_fin: moment(row?.date_fin).format("DD-MM-YYYY"),
 
       status:
-        (row?.status == 0 && "Processing") ||
-        (row?.status == 1 && "Success") ||
-        (row?.status == -1 && "Failed"),
+        (row?.status == 0 && "En cour ...") ||
+        (row?.status == 1 && "Succès") ||
+        (row?.status == -1 && "Échec"),
     };
   });
 
@@ -125,23 +125,22 @@ const HistoryDatagrid = () => {
 
   const navigateToDetails = (row) => {
     // 👇️ navigate to /contacts in the case  : training is done
-    if (row.status === "Success") {
+    if (row.status === "Succès") {
       navigate("/history/ppa/oneTraining", {
         state: { idHistory: row.id },
       });
       // navigate(`/anotherRoute/${row.id}`);
     }
-    if (row.status === "Processing") {
+    if (row.status === "En cour ...") {
       setAlertOption({
-        msg: "this training is not completed yet",
+        msg: "Ce traitement n'est pas encore terminé",
         severity: "warning",
       });
       setOpen(true);
     }
-    if (row.status === "Failed") {
-      console.log(" the failed taining has no details");
+    if (row.status === "Échec") {
       setAlertOption({
-        msg: "the failed taining has no details",
+        msg: "Le traitement échoué n'a pas de détails",
         severity: "error",
       });
       setOpen(true);
@@ -164,7 +163,7 @@ const HistoryDatagrid = () => {
           variant="h6"
           gutterBottom
         >
-          History of trainings
+          Histroir des traitements
         </Typography>
         <Divider />
       </ItemStack>
@@ -174,17 +173,17 @@ const HistoryDatagrid = () => {
           height: "100%",
           width: "100%",
           marginTop: "2%",
-          "& .super-app.Failed": {
+          "& .super-app.Échec": {
             color: "#c71d10",
 
             fontWeight: "600",
           },
-          "& .super-app.Success": {
+          "& .super-app.Succès": {
             color: "#12782d",
 
             fontWeight: "600",
           },
-          "& .super-app.Processing": {
+          "& .super-app.En_cour": {
             color: "#ffcd55",
 
             fontWeight: "600",

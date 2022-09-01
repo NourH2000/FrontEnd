@@ -33,11 +33,11 @@ const OneMedicationLine = () => {
     var r = [],
       o = {};
     array.forEach(function (a) {
-      if (!o[a.centre]) {
-        o[a.centre] = { key: a.centre, value: 0 };
-        r.push(o[a.centre]);
+      if (!o[a.region]) {
+        o[a.region] = { key: a.region, value: 0 };
+        r.push(o[a.region]);
       }
-      o[a.centre].value++;
+      o[a.region].value++;
     });
     return r;
   };
@@ -160,7 +160,9 @@ const OneMedicationLine = () => {
             variant="h6"
             gutterBottom
           >
-            The fraud rate in each region
+            Le taux de fraude dans chaque région
+
+
           </Typography>
           <Chip
             label=" See more"

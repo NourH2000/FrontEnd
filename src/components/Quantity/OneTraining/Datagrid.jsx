@@ -27,7 +27,7 @@ const columns = [
   },
   {
     field: "Nombre_total",
-    headerName: "total",
+    headerName: "totale",
     width: 270,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
@@ -35,7 +35,7 @@ const columns = [
   },
   {
     field: "Nombre_suspécieux",
-    headerName: "suspected case",
+    headerName: "Cas suspect",
     width: 270,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
@@ -109,7 +109,7 @@ const OneTrainingDatagrid = () => {
           variant="h6"
           gutterBottom
         >
-          Training number : {idHistory}
+          Resultas par medicament 
         </Typography>
         <Divider />
       </ItemStack>

@@ -140,10 +140,10 @@ const OneTrainingBarHorizontal = () => {
             variant="h6"
             gutterBottom
           >
-            the 5 pharmacy most suspicious
+            Les 5 pharmacies les plus suspecte
           </Typography>
           <Chip
-            label=" See more"
+            label="Details"
             sx={{ marginTop: "1%" }}
             variant="outlined"
             onClick={navigateToOneTrainingSeeMore}

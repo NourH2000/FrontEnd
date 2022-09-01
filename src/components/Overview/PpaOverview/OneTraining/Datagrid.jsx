@@ -19,7 +19,7 @@ const columns = [
   },
   {
     field: "Médicament",
-    headerName: "Médication",
+    headerName: "Médicament",
     width: 270,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
@@ -35,7 +35,7 @@ const columns = [
   },
   {
     field: "Nombre_suspécieux",
-    headerName: "suspected case",
+    headerName: "Cas suspect",
     width: 270,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
@@ -117,7 +117,7 @@ useEffect(() => {
           variant="h6"
           gutterBottom
         >
-          Training number : {idMax}
+          Resultas par medicament
         </Typography>
         <Divider />
       </ItemStack>

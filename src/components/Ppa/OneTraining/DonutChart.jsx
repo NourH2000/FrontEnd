@@ -121,7 +121,7 @@ const DonutChart = () => {
             variant="h6"
             gutterBottom
           >
-            the {medicationNumber} medication most suspicious
+            Les {medicationNumber} médicaments les plus suspects
           </Typography>
 
           <FormControl

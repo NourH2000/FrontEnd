@@ -17,7 +17,7 @@ const columns = [
   },
   {
     field: "prescription",
-    headerName: "prescription",
+    headerName: "Prescription",
     width: 263,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
@@ -33,7 +33,7 @@ const columns = [
   },
   {
     field: "prix_min",
-    headerName: "Min price",
+    headerName: "Prix min",
     width: 150,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
@@ -41,7 +41,7 @@ const columns = [
   },
   {
     field: "prix_max",
-    headerName: "Max price",
+    headerName: "Prix max",
     width: 150,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
@@ -49,7 +49,7 @@ const columns = [
   },
   {
     field: "prix_ppa",
-    headerName: " PPA price ",
+    headerName: "Prix ppa ",
     width: 170,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
@@ -58,7 +58,7 @@ const columns = [
 
   {
     field: "pharmacie",
-    headerName: "Pharmacy",
+    headerName: "Pharmacie",
     width: 150,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
@@ -166,7 +166,7 @@ const OneMedicationdataGrid = () => {
           variant="h6"
           gutterBottom
         >
-          Training Number : {idMax} , Medication number : {medicament}
+          Traitement {idMax}  Medicament {medicament}
         </Typography>
         <Divider />
       </ItemStack>

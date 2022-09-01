@@ -143,10 +143,10 @@ const OneTrainingBarHorizontal = ({idMax}) => {
             variant="h6"
             gutterBottom
           >
-            the 5 pharmacy most suspicious
+           les 5 pharmacies les plus suspectes
           </Typography>
           <Chip
-            label=" See more"
+            label="Details"
             sx={{ marginTop: "1%" }}
             variant="outlined"
             onClick={navigateToOneTrainingSeeMore}

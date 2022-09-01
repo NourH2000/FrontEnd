@@ -17,7 +17,7 @@ const columns = [
   },
   {
     field: "prescription",
-    headerName: "prescription",
+    headerName: "Ordonnance",
     width: 250,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
@@ -25,40 +25,25 @@ const columns = [
   },
   {
     field: "nassuré",
-    headerName: "Insured number",
+    headerName: "N° d'assuré ",
     width: 150,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
     align: "center",
   },
-  {
-    field: "quantityPrescripted",
-    headerName: " Prescripted Quantity",
-    width: 150,
-    headerClassName: "super-app-theme--header",
-    headerAlign: "center",
-    align: "center",
-  },
-  {
-    field: "quantityPridected",
-    headerName: "predicted Quantity ",
-    width: 150,
-    headerClassName: "super-app-theme--header",
-    headerAlign: "center",
-    align: "center",
-  },
-  {
-    field: "quantityRejected",
-    headerName: " Rejected Quantity ",
-    width: 170,
-    headerClassName: "super-app-theme--header",
-    headerAlign: "center",
-    align: "center",
-  },
+  
   {
     field: "age",
     headerName: " Age",
     width: 100,
+    headerClassName: "super-app-theme--header",
+    headerAlign: "center",
+    align: "center",
+  },
+  {
+    field: "gender",
+    headerName: "Gender",
+    width: 200,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
     align: "center",
@@ -79,10 +64,11 @@ const columns = [
     headerAlign: "center",
     align: "center",
   },
+
   {
-    field: "gender",
-    headerName: "Gender",
-    width: 200,
+    field: "QuantitéPrescrite",
+    headerName: "Quantité prescrite",
+    width: 170,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
     align: "center",
@@ -132,13 +118,13 @@ const OneMedicationdataGrid = () => {
       id: inc(i),
       prescription: row?.fk,
       nassuré: row?.no_assure,
-      quantityPrescripted: row?.quantite_med,
-      quantityPridected: row?.quantite_predicted,
-      quantityRejected: row?.qte_rejet_predicted,
+      QuantitéPrescrite: row?.quantite_med,
       age: row?.age,
       affections: row?.affection,
       pharmacie: row?.codeps,
-      gender: row?.gender,
+      gender: 
+        (row?.gender == 0 && "Femelle") ||
+        (row?.gender == 1 && "Mâle") 
     };
   });
 
@@ -158,7 +144,7 @@ const OneMedicationdataGrid = () => {
           variant="h6"
           gutterBottom
         >
-          Training Number : {idHistory} , Medication number : {medicament}
+          Médicament  : {medicament}
         </Typography>
         <Divider />
       </ItemStack>

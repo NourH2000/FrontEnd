@@ -19,7 +19,7 @@ const columns = [
   },
   {
     field: "Médicament",
-    headerName: "Médication",
+    headerName: "Médicament",
     width: 270,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
@@ -27,7 +27,7 @@ const columns = [
   },
   {
     field: "Nombre_total",
-    headerName: "total",
+    headerName: "totale",
     width: 270,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
@@ -35,7 +35,7 @@ const columns = [
   },
   {
     field: "Nombre_suspécieux",
-    headerName: "suspected case",
+    headerName: "Cas suspect",
     width: 270,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
@@ -103,13 +103,14 @@ const OneTrainingDatagrid = () => {
       sx={{ height: 700, width: "100%" }}
     >
       <ItemStack elevation={0}>
-        <Typography
+       
+      <Typography
           color="black"
           sx={{ fontWeight: "bold", marginBottom: "2%", marginTop: "2%" }}
           variant="h6"
           gutterBottom
         >
-          Training number : {idHistory}
+          Resultas par medicament
         </Typography>
         <Divider />
       </ItemStack>

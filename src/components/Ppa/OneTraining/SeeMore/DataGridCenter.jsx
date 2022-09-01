@@ -14,7 +14,6 @@ import {
   FormControl,
 } from "@mui/material";
 import { styled, createStyles } from "@mui/material/styles";
-import OneTrainingAssureDatagridOneInsured from "./OneInsured";
 import Layout from "./Layout";
 /////////////////////////// data grid de 1 entrainement ////////////////////:
 // 1/ columns
@@ -29,7 +28,7 @@ const columns = [
   },
   {
     field: "medicament",
-    headerName: "Medications",
+    headerName: "Médicament",
     width: 270,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
@@ -131,7 +130,7 @@ const OneTrainingCenterDatagridSeeMore = () => {
             variant="h6"
             gutterBottom
           >
-             {wilaya == 0 ?"the suspected medications in all region"  :" the suspected medications in region "+wilaya }
+             {wilaya == 0 ?"Les médicaments suspects dans toutes les régions"  :"Les médicaments suspects dans la région "+wilaya }
           </Typography>
 
           <FormControl
