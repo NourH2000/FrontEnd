@@ -151,9 +151,8 @@ const OneTrainingAssureDatagrid = () => {
       alignItems="stretch"
       spacing={0}
       sx={{
-        height: "100%",
+        
         width: "100%",
-        padding: "3%",
       }}
     >
       <ItemStack elevation={0}>
@@ -164,23 +163,23 @@ const OneTrainingAssureDatagrid = () => {
         >
           <Typography
             color="black"
-            sx={{ fontWeight: "bold", marginBottom: "4%", marginTop: "2%" }}
+            sx={{ fontWeight: "bold", marginBottom: "2%", marginTop: "1%" }}
             variant="h6"
             gutterBottom
           >
             les 5 assurés les plus suspects
-
           </Typography>
           <Chip
             label="Details"
+            sx={{ marginTop: "1%" }}
             variant="outlined"
-            sx={{ marginTop: "2%" }}
             onClick={navigateToOneTrainingSeeMore}
           />
         </Stack>
 
         <Divider />
       </ItemStack>
+
       <ItemStack
         elevation={0}
         sx={{

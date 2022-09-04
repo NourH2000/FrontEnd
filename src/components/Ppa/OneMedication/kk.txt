@@ -1,3 +1,0 @@
-<OneMedicationTypeCards type={"all"} />
- <OneMedicationTypeCards type={"-1"} />
- <OneMedicationTypeCards type={"1"} />

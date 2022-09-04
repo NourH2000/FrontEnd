@@ -163,7 +163,7 @@ const HistoryDatagrid = () => {
           variant="h6"
           gutterBottom
         >
-          Histroir des traitements
+          Historique des traitements
         </Typography>
         <Divider />
       </ItemStack>

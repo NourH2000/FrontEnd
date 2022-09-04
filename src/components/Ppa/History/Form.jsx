@@ -21,6 +21,8 @@ import SendIcon from "@mui/icons-material/Send";
 import axios from "axios";
 import { styled, createStyles } from "@mui/material/styles";
 import RotateLoader from "react-spinners/RotateLoader";
+import  FormTreatementNew from "./FormTreatementNew"
+
 const Form = () => {
   // item stack
   const ItemStack = styled(Paper)(({ theme }) => ({
@@ -30,10 +32,7 @@ const Form = () => {
 
     color: theme.palette.text.secondary,
   }));
-  //initial values
-  //const today = new Date();
-  //const [valueOne, setValueOne] = useState(moment(today).format("YYYY-MM-DD"));
-  //const [valueTwo, setValueTwo] = useState(moment(today).format("YYYY-MM-DD"));
+ 
   const [valueOne, setValueOne] = useState(null);
   const [valueTwo, setValueTwo] = useState(null);
 
@@ -49,9 +48,10 @@ const Form = () => {
   };
 
   // get data and call the model :
-  const data = { date_debut: valueOne, date_fin: valueTwo };
+  const data = {  auto : 'Non' , date_debut: valueOne, date_fin: valueTwo };
   const callModel = async (data) => {
     const res = await axios.post("http://localhost:8000/models/PrixppaTraitement", data);
+   
   };
 
   // test is this training exist or not ( if it exists => error (snackBar) , else => call the model )
@@ -70,7 +70,7 @@ const Form = () => {
         },
       })
       .then((response) => {
-        response.data[0].count > 0 ? setOpen(true) : callModel(data);
+        response.data[0].count > 0 ? setOpen(true) :  callModel(data);
       });
   };
 
@@ -79,20 +79,16 @@ const Form = () => {
   const [minDate, setMinDate] = useState(null);
 
   useEffect(() => {
-    axios.get("http://localhost:8000/models/getMindateP").then((response) => {
+    axios.get("http://localhost:8000/models/getMinMaxdateP").then((response) => {
       
-      setMinDate(response.data.date_paiment_min);
-      setValueOne(response.data.date_paiment_min);
+      setMinDate(response.data.minDate);
+      setValueOne(response.data.minDate);
+      setMaxDate(response.data.maxDate);
+      setValueTwo(response.data.maxDate);
     });
   }, []);
  
-  useEffect(() => {
-    axios.get("http://localhost:8000/models/getMaxdateP").then((response) => {
-      
-      setMaxDate(response.data.date_paiment_max);
-      setValueTwo(response.data.date_paiment_max);
-    });
-  }, []);
+  
 
   // Clear all
   const ClearAll = () => {
@@ -132,9 +128,14 @@ const Form = () => {
          variant="h6"
          gutterBottom
        >
-         Nouveau entrainement
+         Nouveau traitement
        </Typography>
-       <Divider />
+       <Divider textAlign="left" sx={{ marginBottom :"5%"}}>Sur les nouvelles données</Divider>
+       
+        <FormTreatementNew />
+
+        <Divider textAlign="left" sx={{ marginTop :"10%"}}>Sur une période précise</Divider>
+       
      </ItemStack>
      <ItemStack
      elevation={0}

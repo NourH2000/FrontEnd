@@ -18,10 +18,10 @@ import ClearAllIcon from "@mui/icons-material/ClearAll";
 import SendIcon from "@mui/icons-material/Send";
 import axios from "axios";
 import { styled } from "@mui/material/styles";
-import RotateLoader from "react-spinners/RotateLoader";
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import ReplayIcon from '@mui/icons-material/Replay';
 
-const FormTraining = () => {
+const FormTreatementNew = () => {
   // item stack
   const ItemStack = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -31,16 +31,31 @@ const FormTraining = () => {
     color: theme.palette.text.secondary,
   }));
 
- 
-  
-  const callModel = async (data) => {
-    const res = await axios.post(
-      "http://localhost:8000/models/QuantityTraining"
-    );
+
+  // get the max and min dates of quantity tmp table
+  const GetDates = async () => {
+    
+    await axios
+      .get("http://localhost:8000/models/getMaxdatePTMP")
+      .then((response) => {
+        const data = { date_debut: response.data.minDate, date_fin: response.data.maxDate , auto:'Oui' };
+        callModel(data)
+       
+      });
   };
 
 
+ 
+  const callModel = async (data) => {
+    const res = await axios.post("http://localhost:8000/models/PrixppaTraitement", data);}
 
+
+
+
+
+
+
+    
   // date loading
   const [dateLoading, setDateLoading] = useState(true);
 
@@ -49,8 +64,8 @@ const FormTraining = () => {
       
       
    
-    <Button variant="contained" sx={{  width : "100%" , height : "50px" , backgroundColor : "#113f67"}} startIcon={<ReplayIcon/>} onClick={callModel}>
-      <h4>Lancer un nouveau entrainement</h4>
+    <Button variant="text" sx={{  height : "50px" , color : "#113f67"}} startIcon={<PlayArrowIcon/>} onClick={GetDates}>
+      <h4>Lancer le Traitement </h4>
     </Button>
      
 
@@ -60,4 +75,4 @@ const FormTraining = () => {
   );
 };
 
-export default FormTraining;
+export default FormTreatementNew;

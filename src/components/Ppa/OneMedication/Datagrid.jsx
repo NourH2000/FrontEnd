@@ -138,13 +138,13 @@ const OneMedicationdataGrid = () => {
       prix_ppa: row?.prix_ppa,
       pharmacie: row?.codeps,
       type:
-        (row?.outside == "1" && "Supérieur au maximum") ||
-        (row?.outside == "-1" && "Inférieur au minimum"),
+        (row?.outside == "1" && "Supérieur à la normale") ||
+        (row?.outside == "-1" && "Inférieur à la normale"),
       ts: 
-        (row?.ts == "0" && "OUi") ||
+        (row?.ts == "0" && "Oui") ||
         (row?.ts == "1" && "Non"),
       tier_payant: 
-        (row?.tier_payant == "0" && "OUi") ||
+        (row?.tier_payant == "0" && "Oui") ||
         (row?.tier_payant == "1" && "Non"),
     };
   });

@@ -139,7 +139,7 @@ const OneTrainingLine = () => {
       alignItems="stretch"
       spacing={0}
       sx={{
-        height: "468px",
+        height : "468px",
         width: "100%",
       }}
     >
@@ -151,15 +151,15 @@ const OneTrainingLine = () => {
         >
           <Typography
             color="black"
-            sx={{ fontWeight: "bold", marginBottom: "2%", marginTop: "1%" }}
+            sx={{ fontWeight: "bold", marginBottom: "2%" }}
             variant="h6"
             gutterBottom
           >
-            Le taux de fraude dans chaque région
+            Le taux de d'abus dans chaque région
           </Typography>
           <Chip
             label="Details"
-            sx={{ marginTop: "1%" }}
+            
             variant="outlined"
             onClick={navigateToOneTrainingSeeMore}
           />

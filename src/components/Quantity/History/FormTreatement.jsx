@@ -19,6 +19,7 @@ import SendIcon from "@mui/icons-material/Send";
 import axios from "axios";
 import { styled } from "@mui/material/styles";
 import RotateLoader from "react-spinners/RotateLoader";
+import  FormTreatementNew from "./FormTreatementNew"
 
 const FormTreatement = () => {
   // item stack
@@ -47,7 +48,7 @@ const FormTreatement = () => {
   };
 
   // get data and call the model :
-  const data = { date_debut: valueOne, date_fin: valueTwo };
+  const data = { auto : 'Non' , date_debut: valueOne, date_fin: valueTwo };
   const callModel = async (data) => {
     const res = await axios.post(
       "http://localhost:8000/models/QuantityTraitement",
@@ -70,6 +71,8 @@ const FormTreatement = () => {
           date_debut: data.date_debut,
           date_fin: data.date_fin,
           type: 1,
+          
+
         },
       })
       .then((response) => {
@@ -82,20 +85,16 @@ const FormTreatement = () => {
   const [minDate, setMinDate] = useState(null);
 
   useEffect(() => {
-    axios.get("http://localhost:8000/models/getMindateQ").then((response) => {
-      setMinDate(response.data.date_paiment_min);
-      setValueOne(response.data.date_paiment_min);
+    axios.get("http://localhost:8000/models/getMINMaxdateQ").then((response) => {
+      setMinDate(response.data.minDate);
+      setValueOne(response.data.minDate);
+      setMaxDate(response.data.maxDate);
+      setValueTwo(response.data.maxDate);
       
     });
   }, []);
 
-  useEffect(() => {
-    axios.get("http://localhost:8000/models/getMaxdateQ").then((response) => {
-      setMaxDate(response.data.date_paiment_max);
-      setValueTwo(response.data.date_paiment_max);
-      
-    });
-  }, []);
+ 
 
   // Clear all
   const ClearAll = () => {
@@ -130,13 +129,20 @@ const FormTreatement = () => {
        <ItemStack elevation={0} sx={{ textAlign: "left" }}>
        <Typography
          color="black"
-         sx={{ fontWeight: "bold", marginBottom: "5%", marginTop: "5%" }}
+         sx={{ fontWeight: "bold", marginBottom: "10%", marginTop: "5%" }}
          variant="h6"
          gutterBottom
        >
          Nouveau Traitement
        </Typography>
-       <Divider />
+       
+    
+       <Divider textAlign="left" sx={{ marginBottom :"5%"}}>Sur les nouvelles données</Divider>
+       
+        <FormTreatementNew />
+
+        <Divider textAlign="left" sx={{ marginTop :"10%"}}>Sur une période précise</Divider>
+       
      </ItemStack>
      <ItemStack
      elevation={0}
@@ -168,7 +174,7 @@ const FormTreatement = () => {
            inputFormat="dd/MM/yyyy"
            value={valueOne}
            minDate={minDate}
-           maxDate={maxDate}
+           //maxDate={maxDate}
            onChange={handleChangevalueOne}
            renderInput={(params) => (
              <TextField
@@ -186,7 +192,7 @@ const FormTreatement = () => {
            inputFormat="dd/MM/yyyy"
            value={valueTwo}
            minDate={minDate}
-           maxDate={maxDate}
+           //maxDate={maxDate}
            onChange={handleChangevalueTwo}
            renderInput={(params) => (
              <TextField
@@ -210,7 +216,7 @@ const FormTreatement = () => {
      }}
    >
      <Stack direction="row" justifyContent="space-between">
-       <Button variant="text" endIcon={<SendIcon />} onClick={test}>
+       <Button variant="text" endIcon={<SendIcon />} onClick={test} sx={{color : "#113f67"}}>
          Envoyer
        </Button>
        <IconButton aria-label="delete" size="large" onClick={ClearAll}>

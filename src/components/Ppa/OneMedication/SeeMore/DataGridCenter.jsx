@@ -140,8 +140,8 @@ const OneMedicationCenterDatagridSeeMore = () => {
       prix_max: row?.prix_max,
       prix_min: row?.prix_min,
       type:
-        (row?.outside == "1" && "Supérieur au maximum") ||
-        (row?.outside == "-1" && "Inférieur au minimum"),
+        (row?.outside == "1" && "Supérieur à la normale") ||
+        (row?.outside == "-1" && "Inférieur à la normale"),
     };
   });
   // table of wilaya's

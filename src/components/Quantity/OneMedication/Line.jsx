@@ -160,7 +160,7 @@ const OneMedicationLine = () => {
             variant="h6"
             gutterBottom
           >
-            Le taux de fraude dans chaque région
+            Le taux de d'abus dans chaque région
 
 
           </Typography>

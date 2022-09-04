@@ -107,12 +107,12 @@ const OneTrainingAssureDatagridSeeMore = () => {
       id: inc(i),
       no_assure: row?.no_assure,
       age: row?.age,
-      affection:
-        (row?.affection != -1 && row?.affection) ||
-        (row?.affection == -1 && " "),
+      affection:row?.affection,
       region: row?.region,
       count: row?.count_assure,
-      gender: row?.gender,
+      gender: 
+        (row?.gender == 0 && " Female" ) ||
+        (row?.gender == 1 && "Male"),
     };
   });
 

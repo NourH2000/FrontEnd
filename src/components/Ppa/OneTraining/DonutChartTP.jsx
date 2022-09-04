@@ -48,6 +48,7 @@ const OneTrainingDonutChartTP = () => {
       var r = [],
         o = {};
       array.forEach(function (a) {
+        if(a.tier_payant != '0' ){a.tier_payant = '1'}
         if (!o[a.tier_payant]) {
           o[a.tier_payant] = { key: a.tier_payant, value: 0 };
           r.push(o[a.tier_payant]);
@@ -82,14 +83,15 @@ const OneTrainingDonutChartTP = () => {
          //push the result into the final data
 
         groupedData.map((data, key) => {
-        
+         
           switch(data.key) {
             case '0':
               data.key = "Tier payant"
               break;
             case '1':
-              data.key = " Hors tier payant"
+              data.key = "Hors tier payant"
               break;
+
             default:
               data.key = "Undefined"
           } 

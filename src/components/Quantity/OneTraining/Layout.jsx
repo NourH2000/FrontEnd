@@ -136,12 +136,12 @@ const OneTrainingLayoutQ = () => {
             xs={12}
             justifyContent="space-between"
           >
-            <Grid item xs={4} sx={{ backgroundColor: "transparent" }}>
+            <Grid item xs={6} sx={{ backgroundColor: "transparent" }}>
               <ItemGrid sx={{ padding: "3%" }}>
                 <OneTrainingAssureDatagrid />
               </ItemGrid>
             </Grid>
-            <Grid item xs={7.5} sx={{ backgroundColor: "transparent" }}>
+            <Grid item xs={5} sx={{ backgroundColor: "transparent" , height : "100%" }}>
               <ItemGrid sx={{ padding: "3%" }}>
                 <OneTrainingColumn />
               </ItemGrid>

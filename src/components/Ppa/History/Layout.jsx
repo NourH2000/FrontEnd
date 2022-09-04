@@ -33,6 +33,15 @@ const HistoryLayoutP = () => {
   }));
 
   return (
+    <>
+    <Typography
+          color="#113f67"
+          sx={{  marginBottom: "2%", marginTop: "2%" }}
+          variant="h6"
+          gutterBottom
+        >
+         Historique des traitements Prix ppa
+         </Typography>
     <Stack spacing={1} sx={{ width: "100%" }}>
       <ItemStack sx={{ backgroundColor: "transparent" }}>
         <Grid container spacing={2}>
@@ -48,7 +57,7 @@ const HistoryLayoutP = () => {
           </Grid>
         </Grid>
       </ItemStack>
-    </Stack>
+    </Stack></>
   );
 };
 

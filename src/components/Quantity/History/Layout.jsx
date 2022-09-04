@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import FormTreatement from "./FormTreatement";
 import FormTraining from "./FormTraining"
+import  FormTreatementNew from "./FormTreatementNew"
 
 const HistoryLayoutQ = () => {
   const ItemStack = styled(Paper)(({ theme }) => ({
@@ -34,6 +35,15 @@ const HistoryLayoutQ = () => {
   }));
 
   return (
+    <>
+    <Typography
+          color="#113f67"
+          sx={{  marginBottom: "2%", marginTop: "2%" }}
+          variant="h6"
+          gutterBottom
+        >
+         Historique des traitements Quantité
+         </Typography>
     <Stack spacing={1} sx={{ width: "100%" }}>
       <ItemStack sx={{ backgroundColor: "transparent" }}>
         <Grid container spacing={2}>
@@ -47,15 +57,16 @@ const HistoryLayoutQ = () => {
               <FormTreatement />
             </ItemGrid>
             <ItemGrid elevation={0} sx ={{  backgroundColor : "transparent"   }}>
-              <FormTraining />
+              <FormTraining />  
             </ItemGrid>
+            
           </Grid>
           
         </Grid>
       </ItemStack>
 
       
-    </Stack>
+    </Stack></>
   );
 };
 

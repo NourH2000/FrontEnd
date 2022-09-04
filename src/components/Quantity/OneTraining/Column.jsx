@@ -23,30 +23,36 @@ const OneTrainingColumn = () => {
   // Id of training :
   const idHistory = location.state.idHistory;
 
-  // initial values
-  const [center, setCenter] = useState([]);
+  /// initial values
+  const [ts, setts] = useState([]);
   const [count, setCount] = useState([]);
 
-  // function to group the data by center and count em :
+ // function to group the data by ts and count em :
   const group = function (array) {
     var r = [],
       o = {};
     array.forEach(function (a) {
-      if (!o[a.centre]) {
-        o[a.centre] = { key: a.centre, value: 0 };
-        r.push(o[a.centre]);
+      if(a.ts == -1 || a.ts == 1 ){
+        a.ts = 'Hors traitement spécifique'  }
+        else{
+          a.ts = 'Traitement spécifique'
       }
-      o[a.centre].value++;
+      if (!o[a.ts]) {
+        
+        o[a.ts] = { key: a.ts, value: 0 };
+        r.push(o[a.ts]);
+      }
+      o[a.ts].value++;
     });
     return r;
   };
 
   useEffect(() => {
     // get the medication suspected with count
-    const resultcenter = [];
+    const resultts = [];
     const resultcount = [];
     axios
-      .get("http://localhost:8000/DetailsOfTrainingQ//CountCenterMedication/", {
+      .get("http://localhost:8000/DetailsOfTrainingQ/TsOneTraining/", {
         params: {
           idEntrainement: idHistory,
         },
@@ -58,14 +64,14 @@ const OneTrainingColumn = () => {
         // group the data :
         const groupedData = group(data);
 
-        // push the data into a table of center and count
+        // push the data into a table of ts and count
         groupedData.map((data, key) => {
-          resultcenter.push(data.key);
+          resultts.push(data.key);
           resultcount.push(data.value);
         });
 
         // push the result into the series of chart
-        setCenter(resultcenter);
+        setts(resultts);
         setCount(resultcount);
       });
   }, []);
@@ -100,7 +106,7 @@ const OneTrainingColumn = () => {
       },
 
       xaxis: {
-        categories: center,
+        categories: ts,
         position: "top",
         axisBorder: {
           show: false,
@@ -152,10 +158,10 @@ const OneTrainingColumn = () => {
             variant="h6"
             gutterBottom
           >
-            The fraud rate in each center
+            Traitement spécifique 
           </Typography>
           <Chip
-            label=" See more"
+            label="Details"
             sx={{ marginTop: "1%" }}
             variant="outlined"
             onClick={handleClick}

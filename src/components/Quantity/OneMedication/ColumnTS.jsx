@@ -33,6 +33,11 @@ const OneMedicationColumnTS = () => {
     var r = [],
       o = {};
     array.forEach(function (a) {
+      if(a.ts == -1 || a.ts == 1 ){
+        a.ts = 'Hors traitement spécifique'  }
+        else{
+          a.ts = 'Traitement spécifique'
+      }
       if (!o[a.ts]) {
         o[a.ts] = { key: a.ts, value: 0 };
         r.push(o[a.ts]);
@@ -62,7 +67,8 @@ const OneMedicationColumnTS = () => {
 
         // group the data :
         const groupedData = group(data);
-
+        //const groupedData = [{key : "Traitement spécifique" , value : 32 } , {key : "Hors traitement spécifique" , value : 15 }]
+        //console.log(groupedData)
         // push the data into a table of ts and count
         groupedData.map((data, key) => {
           resultts.push(data.key);

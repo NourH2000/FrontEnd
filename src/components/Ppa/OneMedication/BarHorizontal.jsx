@@ -148,7 +148,7 @@ const OneMedicationBarHorizontal = () => {
             variant="h6"
             gutterBottom
           >
-            les 5 pharmacies les plus suspectes
+            les 10 pharmacies les plus suspectes
 
           </Typography>
           <Chip

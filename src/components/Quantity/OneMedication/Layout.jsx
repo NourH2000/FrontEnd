@@ -65,6 +65,13 @@ const OneMedicationLayoutQ = () => {
           padding={0}
           justifyContent="space-between"
         >
+          
+
+          <Grid item xs={4}>
+            <ItemGrid xs={9} sx={{ padding: "3%" }}>
+            <OneMedicationColumn />
+            </ItemGrid>
+          </Grid>
           <Grid item xs={3}>
             <Stack spacing={1} sx={{ width: "100%" }}>
               <ItemStack elevation={0} sx={{ backgroundColor: "transparent" }}>
@@ -78,15 +85,10 @@ const OneMedicationLayoutQ = () => {
               </ItemStack>
             </Stack>
           </Grid>
-
-          <Grid item xs={3}>
-            <ItemGrid xs={9} sx={{ padding: "3%" }}>
-              {<OneMedicationColumnTS />}
-            </ItemGrid>
-          </Grid>
           <Grid item xs={4}>
             <ItemGrid xs={9} sx={{ padding: "3%" }}>
-              <OneMedicationColumn />
+              
+              {<OneMedicationColumnTS />}
             </ItemGrid>
           </Grid>
         </Grid>
