@@ -1,5 +1,7 @@
 import Overview from "./components/Overview/Overview";
 import Settings from "./components/Parameter/Settings";
+import Login from "./components/LogIn/Login";
+
 // quantity routes
 import HistoryLayoutQ from "./components/Quantity/History/Layout";
 import OneMedicationLayoutQ from "./components/Quantity/OneMedication/Layout";
@@ -68,5 +70,9 @@ export const routes = [
   {
     path: "/settings",
     component: Settings,
+  },
+  {
+    path: "/login",
+    component: Login,
   },
 ];
