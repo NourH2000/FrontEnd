@@ -2,9 +2,25 @@ import { Avatar, Button, Checkbox, CssBaseline, FormControlLabel, Grid, Link, Sn
 import { Box, Container } from "@mui/system";
 import React, { useState, useEffect } from "react";
 import Alert from '@mui/material/Alert';
-import axios from "axios";
+import axios, { Axios } from "axios";
+axios.defaults.withCredentials = true
+
+
 
 const Login = () => {
+
+const [loginStatus, setLoginStatus] = useState("")
+useEffect(() => {
+  // check if there is a user logedIn
+axios.get("http://localhost:8000/auth/login")
+.then((response) => { 
+  // if it is => change the status
+  if(response.data.logedIn == true){
+  console.log(response.data.user.rows[0].username)
+  setLoginStatus(response.data.user.rows[0].username)}
+})
+},[loginStatus])
+
 
 const [username, setUsername] = useState("")
 const [password, setPassword] = useState("")
@@ -88,7 +104,9 @@ const login = () => {
             </Button>
             
           </Box>
+          
         </Box>
+
       </Container>
     </>
     )

@@ -62,7 +62,6 @@ const FormTreatement = () => {
 
   // snackBar
   const [open, setOpen] = useState(false);
-  const [alertOption, setAlertOption] = useState({});
 
   const test = async () => {
     await axios
