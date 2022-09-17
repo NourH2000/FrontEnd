@@ -3,18 +3,8 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { color } from "@mui/system";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-import {
-  Typography,
-  Paper,
-  Stack,
-  Divider,
-  InputLabel,
-  Select,
-  MenuItem,
-  FormControl,
-} from "@mui/material";
+import { Typography, Paper, Stack, Divider } from "@mui/material";
 import { styled, createStyles } from "@mui/material/styles";
-import OneTrainingAssureDatagridOneInsured from "./OneInsured";
 import Layout from "./Layout";
 /////////////////////////// data grid de 1 entrainement ////////////////////:
 // 1/ columns
@@ -22,15 +12,15 @@ const columns = [
   {
     field: "id",
     headerName: "Id",
-    width: 152,
+    width: 110,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
     align: "center",
   },
   {
-    field: "medicament",
-    headerName: "Médicament",
-    width: 270,
+    field: "codeps",
+    headerName: "Pharmacie",
+    width: 300,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
     align: "center",
@@ -38,14 +28,14 @@ const columns = [
   {
     field: "count",
     headerName: "Count",
-    width: 270,
+    width: 190,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
     align: "center",
   },
 ];
 
-const OneTrainingCenterDatagridSeeMore = () => {
+const OneTrainingPharmacyDatagridSeeMore = () => {
   const ItemStack = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
     ...theme.typography.body2,
@@ -53,67 +43,96 @@ const OneTrainingCenterDatagridSeeMore = () => {
 
     color: theme.palette.text.secondary,
   }));
+  // get the data ( count grouped by medication )
+
   const location = useLocation();
 
-  //data
-  const [tableData, setTableData] = useState([]);
+  // Id of training :
+  const idMax = location.state.idMax;
+  const medicament = location.state.medicament;
 
-  // fetch the data :
-  const idHistory = location.state.idHistory;
-  // state for wilaya
+  // initial values
+  const [codeps, setCodeps] = useState([]);
+  const [count, setCount] = useState([]);
 
-  // table of wilaya's
-
-  const AllWIlaya  =Array.from(Array(59).keys())
-  //console.log(AllWIlaya);
-  const All = 0
-  const [wilaya, setWilaya] = useState(All);
-  const handleChange = (event) => {
-    console.log(event.target.value)
-    setWilaya(event.target.value);
+  // function to group the data by codeps and count em :
+  const group = function (array) {
+    var r = [],
+      o = {};
+    array.forEach(function (a) {
+      if (!o[a.codeps]) {
+        o[a.codeps] = { key: a.codeps, value: 0 };
+        r.push(o[a.codeps]);
+      }
+      o[a.codeps].value++;
+    });
+    return r;
   };
 
   useEffect(() => {
+    // get the medication suspected with count
+    const resultcodeps = [];
+    const resultcount = [];
     axios
       .get(
-        "http://localhost:8000/DetailsOfTrainingQ/CountOneCenterMedication/",
+        "http://localhost:8000/DetailsOfMedicationQ/CountCodepsOneMedication/",
         {
           params: {
-            idEntrainement: idHistory,
-            region: wilaya,
+            idEntrainement: idMax,
+            numEnr: medicament,
           },
         }
       )
       .then((response) => {
-        setTableData(response.data);
-      });
-  }, [wilaya]);
+        // get the data result
+        const data = response.data;
 
+        // group the data :
+        const groupedData = group(data);
+
+        // sorting data by count
+        const SortedData = groupedData.sort((a, b) => {
+          return b.value - a.value;
+        });
+
+        // push the data into a table of codeps and count
+
+        // if the data < 5 ==> get all the data
+        for (let i = 0; i < SortedData.length; i++) {
+          resultcodeps.push({
+            codeps: SortedData[i].key,
+            count: SortedData[i].value,
+          });
+        }
+
+        // push the result into the series of chart
+        setCodeps(resultcodeps);
+      });
+  }, []);
   // auto increment ID
   let i = 0;
   const inc = () => {
     i = i + 1;
     return i;
   };
-  const HistoryRow = tableData.map((row) => {
+  const HistoryRow = codeps.map((row) => {
     return {
       id: inc(i),
-      medicament: row?.num_enr,
+      codeps: row?.codeps,
       count: row?.count,
     };
   });
-  // table of region's
 
-  const Allregion = Array.from(Array(58).keys());
   // go to the details of one medication
   //Navigation
   const navigate = useNavigate();
   const [DetailsTable, setDetailsTable] = useState(false);
   const openDetails = (row) => {
     setDetailsTable(true);
-
+    console.log(DetailsTable);
     <Layout />;
   };
+
   const [pageSize, setPageSize] = useState(20);
   return (
     <Stack
@@ -123,42 +142,14 @@ const OneTrainingCenterDatagridSeeMore = () => {
       sx={{ height: 700, width: "100%" }}
     >
       <ItemStack elevation={0}>
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="flex-start"
+        <Typography
+          color="black"
+          sx={{ fontWeight: "bold", marginBottom: "2%", marginTop: "2%" }}
+          variant="h6"
+          gutterBottom
         >
-          <Typography
-            color="black"
-            sx={{ fontWeight: "bold", marginBottom: "2%", marginTop: "1%" }}
-            variant="h6"
-            gutterBottom
-          >
-             {wilaya == 0 ?"Les médicaments suspects dans toutes les régions"  :"Les médicaments suspects dans la région "+wilaya }
-          </Typography>
-
-          <FormControl
-            variant="standard"
-            sx={{ m: 1, minWidth: 20, marginBottom: "%" }}
-          >
-            <Select
-              defaultValue={All}
-              labelId="demo-simple-select-standard-label"
-              id="demo-simple-select-standard"
-              value={wilaya}
-              onChange={handleChange}
-              label="Number"
-              autoWidth
-              sx={{ fontWeight: "bold" }}
-            >
-              <MenuItem value={0}>ALL</MenuItem>
-                {AllWIlaya.map((row) => (
-                <MenuItem value={row + 1}>{row + 1}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Stack>
-
+          Toutes les pharmacies suspectes
+        </Typography>
         <Divider />
       </ItemStack>
       <ItemStack
@@ -196,4 +187,4 @@ const OneTrainingCenterDatagridSeeMore = () => {
   );
 };
 
-export default OneTrainingCenterDatagridSeeMore;
+export default OneTrainingPharmacyDatagridSeeMore;

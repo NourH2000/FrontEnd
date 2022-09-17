@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { gridColumnsSelector } from "@mui/x-data-grid";
 
-const OneTrainingLine = ({idMax}) => {
+const OneMedicationLine = () => {
   // item stack
   const ItemStack = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -18,10 +18,15 @@ const OneTrainingLine = ({idMax}) => {
 
   // get the data ( count grouped by medication )
 
+  const location = useLocation();
+  // Id of training :
+  const idMax = location.state.idMax;
+  const medicament = location.state.medicament;
+
   // initial values
   const [center, setCenter] = useState([]);
   const [count, setCount] = useState([]);
-  const [newRigion, setnewRigion] = useState({}); // this for the newRigion that not exist
+  const [newRegion, setNewRegion] = useState({}); // this for the newRegion that not exist
   // function to group the data by center and count em :
   const group = function (array) {
     var r = [],
@@ -40,13 +45,16 @@ const OneTrainingLine = ({idMax}) => {
     // get the medication suspected with count
     const resultcenter = [];
     const resultcount = [];
-    if(idMax){
     axios
-      .get("http://localhost:8000/DetailsOfTrainingP/CountCenterMedication/", {
-        params: {
-          idEntrainement: idMax,
-        },
-      })
+      .get(
+        "http://localhost:8000/DetailsOfMedicationQ/CountCenterMedication/",
+        {
+          params: {
+            idEntrainement: idMax,
+            numEnr: medicament,
+          },
+        }
+      )
       .then((response) => {
         // get the data result
         const data = response.data;
@@ -57,7 +65,7 @@ const OneTrainingLine = ({idMax}) => {
         //push the data into a table of center and count
         var v = {};
         // is all region exists
-        for (let i = 1; i < 60; i++) {
+        for (let i = 1; i < 59; i++) {
           let find = false;
           groupedData.map((data, key) => {
             data.key == i ? (find = true) : false;
@@ -84,12 +92,9 @@ const OneTrainingLine = ({idMax}) => {
         setCenter(resultcenter);
         setCount(resultcount);
       });
-    }else{
-    }
-  }, [idMax]);
+  }, []);
 
   const option = {
-    stroke: { width: 7, curve: "smooth" },
     series: [
       {
         name: "rate",
@@ -97,11 +102,12 @@ const OneTrainingLine = ({idMax}) => {
       },
     ],
     options: {
+      stroke: { width: 7, curve: "smooth" },
       chart: {
         height: 350,
         type: "line",
         zoom: {
-          enabled: false,
+          enabled: true,
         },
       },
       dataLabels: {
@@ -117,6 +123,7 @@ const OneTrainingLine = ({idMax}) => {
           opacity: 0.5,
         },
       },
+
       xaxis: {
         categories: center,
       },
@@ -124,11 +131,13 @@ const OneTrainingLine = ({idMax}) => {
   };
   //Navigation
   const navigate = useNavigate();
-  const navigateToOneTrainingSeeMore = (row) => {
-    navigate("/overview/ppa/oneTraining/SeeMore", {
-      state: { idMax: idMax },
+  const navigateToOneMedicationSeeMore = (row) => {
+    navigate("/overview/quantity/oneMedication/SeeMore", {
+      state: { idMax: idMax, medicament: medicament },
     });
   };
+  
+
 
   return (
     <Stack
@@ -152,13 +161,15 @@ const OneTrainingLine = ({idMax}) => {
             variant="h6"
             gutterBottom
           >
-            Le taux de fraude dans chaque région
+            Le taux de d'abus dans chaque région
+
+
           </Typography>
           <Chip
             label="Details"
             sx={{ marginTop: "1%" }}
             variant="outlined"
-            onClick={navigateToOneTrainingSeeMore}
+            onClick={navigateToOneMedicationSeeMore}
           />
         </Stack>
 
@@ -185,4 +196,4 @@ const OneTrainingLine = ({idMax}) => {
   );
 };
 
-export default OneTrainingLine;
+export default OneMedicationLine;

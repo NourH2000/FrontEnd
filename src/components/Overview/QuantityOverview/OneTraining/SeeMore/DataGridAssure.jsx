@@ -3,16 +3,7 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { color } from "@mui/system";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-import {
-  Typography,
-  Paper,
-  Stack,
-  Divider,
-  InputLabel,
-  Select,
-  MenuItem,
-  FormControl,
-} from "@mui/material";
+import { Typography, Paper, Stack, Divider } from "@mui/material";
 import { styled, createStyles } from "@mui/material/styles";
 import OneTrainingAssureDatagridOneInsured from "./OneInsured";
 import Layout from "./Layout";
@@ -22,15 +13,47 @@ const columns = [
   {
     field: "id",
     headerName: "Id",
-    width: 152,
+    width: 100,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
     align: "center",
   },
   {
-    field: "medicament",
-    headerName: "Médicament",
+    field: "no_assure",
+    headerName: "N° d'assuré",
     width: 270,
+    headerClassName: "super-app-theme--header",
+    headerAlign: "center",
+    align: "center",
+  },
+  {
+    field: "age",
+    headerName: "Age",
+    width: 200,
+    headerClassName: "super-app-theme--header",
+    headerAlign: "center",
+    align: "center",
+  },
+  {
+    field: "gender",
+    headerName: "Genre",
+    width: 200,
+    headerClassName: "super-app-theme--header",
+    headerAlign: "center",
+    align: "center",
+  },
+  {
+    field: "affection",
+    headerName: "Affections",
+    width: 270,
+    headerClassName: "super-app-theme--header",
+    headerAlign: "center",
+    align: "center",
+  },
+  {
+    field: "region",
+    headerName: "Region",
+    width: 200,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
     align: "center",
@@ -38,14 +61,14 @@ const columns = [
   {
     field: "count",
     headerName: "Count",
-    width: 270,
+    width: 220,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
     align: "center",
   },
 ];
 
-const OneTrainingCenterDatagridSeeMore = () => {
+const OneTrainingAssureDatagridSeeMore = () => {
   const ItemStack = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
     ...theme.typography.body2,
@@ -59,35 +82,21 @@ const OneTrainingCenterDatagridSeeMore = () => {
   const [tableData, setTableData] = useState([]);
 
   // fetch the data :
-  const idHistory = location.state.idHistory;
-  // state for wilaya
-
-  // table of wilaya's
-
-  const AllWIlaya  =Array.from(Array(59).keys())
-  //console.log(AllWIlaya);
-  const All = 0
-  const [wilaya, setWilaya] = useState(All);
-  const handleChange = (event) => {
-    console.log(event.target.value)
-    setWilaya(event.target.value);
-  };
+  const idMax = location.state.idMax;
 
   useEffect(() => {
+    if(idMax){
     axios
-      .get(
-        "http://localhost:8000/DetailsOfTrainingQ/CountOneCenterMedication/",
-        {
-          params: {
-            idEntrainement: idHistory,
-            region: wilaya,
-          },
-        }
-      )
+      .get("http://localhost:8000/DetailsOfTrainingQ/CountAssuresSuspected/", {
+        params: {
+          idEntrainement: idMax,
+        },
+      })
       .then((response) => {
         setTableData(response.data);
       });
-  }, [wilaya]);
+    }
+  }, []);
 
   // auto increment ID
   let i = 0;
@@ -98,22 +107,27 @@ const OneTrainingCenterDatagridSeeMore = () => {
   const HistoryRow = tableData.map((row) => {
     return {
       id: inc(i),
-      medicament: row?.num_enr,
-      count: row?.count,
+      no_assure: row?.no_assure,
+      age: row?.age,
+      affection:row?.affection,
+      region: row?.region,
+      count: row?.count_assure,
+      gender: 
+        (row?.gender == 0 && " Female" ) ||
+        (row?.gender == 1 && "Male"),
     };
   });
-  // table of region's
 
-  const Allregion = Array.from(Array(58).keys());
   // go to the details of one medication
   //Navigation
   const navigate = useNavigate();
   const [DetailsTable, setDetailsTable] = useState(false);
   const openDetails = (row) => {
     setDetailsTable(true);
-
+    console.log(DetailsTable);
     <Layout />;
   };
+
   const [pageSize, setPageSize] = useState(20);
   return (
     <Stack
@@ -123,42 +137,14 @@ const OneTrainingCenterDatagridSeeMore = () => {
       sx={{ height: 700, width: "100%" }}
     >
       <ItemStack elevation={0}>
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="flex-start"
+        <Typography
+          color="black"
+          sx={{ fontWeight: "bold", marginBottom: "2%" }}
+          variant="h6"
+          gutterBottom
         >
-          <Typography
-            color="black"
-            sx={{ fontWeight: "bold", marginBottom: "2%", marginTop: "1%" }}
-            variant="h6"
-            gutterBottom
-          >
-             {wilaya == 0 ?"Les médicaments suspects dans toutes les régions"  :"Les médicaments suspects dans la région "+wilaya }
-          </Typography>
-
-          <FormControl
-            variant="standard"
-            sx={{ m: 1, minWidth: 20, marginBottom: "%" }}
-          >
-            <Select
-              defaultValue={All}
-              labelId="demo-simple-select-standard-label"
-              id="demo-simple-select-standard"
-              value={wilaya}
-              onChange={handleChange}
-              label="Number"
-              autoWidth
-              sx={{ fontWeight: "bold" }}
-            >
-              <MenuItem value={0}>ALL</MenuItem>
-                {AllWIlaya.map((row) => (
-                <MenuItem value={row + 1}>{row + 1}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Stack>
-
+          Tous les assurés suspectés
+        </Typography>
         <Divider />
       </ItemStack>
       <ItemStack
@@ -196,4 +182,4 @@ const OneTrainingCenterDatagridSeeMore = () => {
   );
 };
 
-export default OneTrainingCenterDatagridSeeMore;
+export default OneTrainingAssureDatagridSeeMore;

@@ -19,7 +19,7 @@ import {
   Typography,
 } from "@mui/material";
 
-const OneTrainingLayoutPSeeMore = ({ DetailsTable }) => {
+const OverviewOneTrainingLayoutPSeeMore = ({ DetailsTable }) => {
   // recupérer l'id de historique
   const location = useLocation();
   const idMax = location.state.idMax;
@@ -72,4 +72,4 @@ const OneTrainingLayoutPSeeMore = ({ DetailsTable }) => {
   );
 };
 
-export default OneTrainingLayoutPSeeMore;
+export default OverviewOneTrainingLayoutPSeeMore;

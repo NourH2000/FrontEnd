@@ -10,6 +10,7 @@ axios.defaults.withCredentials = true
 const Login = () => {
 
 const [loginStatus, setLoginStatus] = useState("")
+const [authenticated, setauthenticated] = useState(localStorage.getItem(localStorage.getItem("authenticated")|| false));
 useEffect(() => {
   // check if there is a user logedIn
 axios.get("http://localhost:8000/auth/login")
@@ -36,6 +37,13 @@ const login = () => {
     if(response.data.connected == -1 || response.data.connected == 0 ){
       setOpen(true)
       setMsg(response.data.msg)
+      setauthenticated(false)
+      localStorage.setItem("authenticated", false);
+      console.log("am hereeee ")
+    }else{
+      setauthenticated(true)
+      localStorage.setItem("authenticated", true);
+      console.log("am here ")
     }
   })
 }

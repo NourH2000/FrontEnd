@@ -1,6 +1,6 @@
 import Overview from "./components/Overview/Overview";
 import Settings from "./components/Parameter/Settings";
-//import Login from "./components/LogIn/Login";
+import Login from "./components/LogIn/Login";
 
 // quantity routes
 import HistoryLayoutQ from "./components/Quantity/History/Layout";
@@ -8,6 +8,11 @@ import OneMedicationLayoutQ from "./components/Quantity/OneMedication/Layout";
 import OneTrainingLayoutQ from "./components/Quantity/OneTraining/Layout";
 import OneTrainingLayoutQSeeMore from "./components/Quantity/OneTraining/SeeMore/Layout";
 import OneMedicationLayoutQSeeMore from "./components/Quantity/OneMedication/SeeMore/Layout";
+import OverviewOneTrainingLayoutQ from "./components/Overview/QuantityOverview/OneTraining/Layout";
+import OverviewOneTrainingLayoutQSeeMore from "./components/Overview/QuantityOverview/OneTraining/SeeMore/Layout";
+import OverviewOneMedicationLayoutQ from "./components/Overview/QuantityOverview/OneMedication/Layout"
+import OverviewOneMedicationLayoutQSeeMore from "./components/Overview/QuantityOverview/OneMedication/SeeMore/Layout";
+
 
 // ppa routes
 import HistoryLayoutP from "./components/Ppa/History/Layout";
@@ -16,9 +21,9 @@ import OneMedicationLayoutP from "./components/Ppa/OneMedication/Layout";
 import OneTrainingLayoutPSeeMore from "./components/Ppa/OneTraining/SeeMore/Layout";
 import OneMedicationLayoutPSeeMore from "./components/Ppa/OneMedication/SeeMore/Layout";
 import OverviewOneTrainingLayoutP from "./components/Overview/PpaOverview/OneTraining/Layout";
+import OverviewOneTrainingLayoutPSeeMore from "./components/Overview/PpaOverview/OneTraining/SeeMore/Layout";
 import OverviewOneMedicationLayoutP from "./components/Overview/PpaOverview/OneMedication/Layout";
 import OverviewOneMedicationLayoutPSeeMore from "./components/Overview/PpaOverview/OneMedication/SeeMore/Layout";
-import OverviewOneTrainingLayoutPSeeMore from "./components/Overview/PpaOverview/OneTraining/SeeMore/Layout";
 
 export const routes = [
   { path: "/overview", component: Overview },
@@ -63,16 +68,33 @@ export const routes = [
     path: "/overview/ppa/oneMedication/SeeMore",
     component: OverviewOneMedicationLayoutPSeeMore,
   },
+  
   {
     path: "/overview/ppa/oneTraining/SeeMore",
     component: OverviewOneTrainingLayoutPSeeMore,
   },
   {
+    path: "/overview/quantity/oneTraining",
+    component: OverviewOneTrainingLayoutQ,
+  },
+  {
+    path: "/overview/quantity/oneTraining/SeeMore",
+    component: OverviewOneTrainingLayoutQSeeMore,
+  },
+  {
+    path: "/overview/quantity/oneMedication",
+    component: OverviewOneMedicationLayoutQ,
+  },
+  {
+    path: "/overview/quantity/oneMedication/SeeMore",
+    component: OverviewOneMedicationLayoutQSeeMore,
+  },
+  {
     path: "/settings",
     component: Settings,
   },
-  //{
-   // path: "/login",
-    //component: Login,
- // },
+  {
+    path: "/login",
+    component: Login,
+ },
 ];

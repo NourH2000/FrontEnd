@@ -22,27 +22,37 @@ const columns = [
   {
     field: "id",
     headerName: "Id",
-    width: 152,
+    width: 100,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
     align: "center",
   },
   {
-    field: "medicament",
-    headerName: "Médicament",
-    width: 270,
+    field: "fk",
+    headerName: "Ordonnance",
+    width: 350,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
     align: "center",
   },
   {
-    field: "count",
-    headerName: "Count",
-    width: 270,
+    field: "pharmacie",
+    headerName: "Pharmacie",
+    width: 250,
     headerClassName: "super-app-theme--header",
     headerAlign: "center",
     align: "center",
   },
+  {
+    field: "quantityPrescripted",
+    headerName: "Quantité prescrite",
+    width: 150,
+    headerClassName: "super-app-theme--header",
+    headerAlign: "center",
+    align: "center",
+  },
+  
+  
 ];
 
 const OneTrainingCenterDatagridSeeMore = () => {
@@ -59,28 +69,32 @@ const OneTrainingCenterDatagridSeeMore = () => {
   const [tableData, setTableData] = useState([]);
 
   // fetch the data :
-  const idHistory = location.state.idHistory;
-  // state for wilaya
+  const idMax = location.state.idMax;
+  const medicament = location.state.medicament;
+  //console.log(medicament);
+  //console.log(idMax);
 
-  // table of wilaya's
+  // state for wilaya
 
   const AllWIlaya  =Array.from(Array(59).keys())
   //console.log(AllWIlaya);
   const All = 0
   const [wilaya, setWilaya] = useState(All);
+
+
   const handleChange = (event) => {
     console.log(event.target.value)
     setWilaya(event.target.value);
   };
-
   useEffect(() => {
     axios
       .get(
-        "http://localhost:8000/DetailsOfTrainingQ/CountOneCenterMedication/",
+        "http://localhost:8000/DetailsOfMedicationQ/CountOneCenterMedication/",
         {
           params: {
-            idEntrainement: idHistory,
+            idEntrainement: idMax,
             region: wilaya,
+            NumEnR: medicament,
           },
         }
       )
@@ -98,13 +112,15 @@ const OneTrainingCenterDatagridSeeMore = () => {
   const HistoryRow = tableData.map((row) => {
     return {
       id: inc(i),
-      medicament: row?.num_enr,
-      count: row?.count,
+      fk: row?.fk,
+      pharmacie: row?.codeps,
+      quantityPrescripted: row?.quantite_med,
+
     };
   });
-  // table of region's
+  // table of wilaya's
 
-  const Allregion = Array.from(Array(58).keys());
+  const Allwilaya = Array.from(Array(59).keys());
   // go to the details of one medication
   //Navigation
   const navigate = useNavigate();
@@ -114,6 +130,7 @@ const OneTrainingCenterDatagridSeeMore = () => {
 
     <Layout />;
   };
+
   const [pageSize, setPageSize] = useState(20);
   return (
     <Stack
@@ -134,8 +151,10 @@ const OneTrainingCenterDatagridSeeMore = () => {
             variant="h6"
             gutterBottom
           >
-             {wilaya == 0 ?"Les médicaments suspects dans toutes les régions"  :"Les médicaments suspects dans la région "+wilaya }
+            {wilaya == 0 ?"Tous les médicaments suspects dans toutes les régions"  :" Les médicaments suspects dans la région "+wilaya }
           </Typography>
+
+
 
           <FormControl
             variant="standard"
@@ -151,10 +170,12 @@ const OneTrainingCenterDatagridSeeMore = () => {
               autoWidth
               sx={{ fontWeight: "bold" }}
             >
+              
               <MenuItem value={0}>ALL</MenuItem>
                 {AllWIlaya.map((row) => (
                 <MenuItem value={row + 1}>{row + 1}</MenuItem>
               ))}
+              
             </Select>
           </FormControl>
         </Stack>

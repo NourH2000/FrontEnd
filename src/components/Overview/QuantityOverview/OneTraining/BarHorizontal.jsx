@@ -4,9 +4,8 @@ import Chart from "react-apexcharts";
 import { styled } from "@mui/material/styles";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { gridColumnsSelector } from "@mui/x-data-grid";
 
-const OneTrainingLine = ({idMax}) => {
+const OneTrainingBarHorizontal = ({idMax}) => {
   // item stack
   const ItemStack = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -18,31 +17,32 @@ const OneTrainingLine = ({idMax}) => {
 
   // get the data ( count grouped by medication )
 
+
   // initial values
-  const [center, setCenter] = useState([]);
+  const [codeps, setCodeps] = useState([]);
   const [count, setCount] = useState([]);
-  const [newRigion, setnewRigion] = useState({}); // this for the newRigion that not exist
-  // function to group the data by center and count em :
+
+  // function to group the data by codeps and count em :
   const group = function (array) {
     var r = [],
       o = {};
     array.forEach(function (a) {
-      if (!o[a.region]) {
-        o[a.region] = { key: a.region, value: 0 };
-        r.push(o[a.region]);
+      if (!o[a.codeps]) {
+        o[a.codeps] = { key: a.codeps, value: 0 };
+        r.push(o[a.codeps]);
       }
-      o[a.region].value++;
+      o[a.codeps].value++;
     });
     return r;
   };
 
   useEffect(() => {
-    // get the medication suspected with count
-    const resultcenter = [];
-    const resultcount = [];
     if(idMax){
+    // get the medication suspected with count
+    const resultcodeps = [];
+    const resultcount = [];
     axios
-      .get("http://localhost:8000/DetailsOfTrainingP/CountCenterMedication/", {
+      .get("http://localhost:8000/DetailsOfTrainingQ/CountCodepsMedication/", {
         params: {
           idEntrainement: idMax,
         },
@@ -54,78 +54,64 @@ const OneTrainingLine = ({idMax}) => {
         // group the data :
         const groupedData = group(data);
 
-        //push the data into a table of center and count
-        var v = {};
-        // is all region exists
-        for (let i = 1; i < 60; i++) {
-          let find = false;
-          groupedData.map((data, key) => {
-            data.key == i ? (find = true) : false;
-          });
+        // sorting data by count
+        const SortedData = groupedData.sort((a, b) => {
+          return b.value - a.value;
+        });
 
-          // if the wilata does not exist , add the new object
-          if (!find) {
-            v = { key: i, value: 0 };
-            groupedData.push(v);
+        // push the data into a table of codeps and count
+
+        // push this data into the array of the BARS in the case of ::
+        if (SortedData.length >= 5) {
+          for (let i = 0; i < 5; i++) {
+            resultcodeps.push(SortedData[i].key);
+            resultcount.push(SortedData[i].value);
+          }
+        } else {
+          // if the data < 5 ==> get all the data
+          for (let i = 0; i < SortedData.length; i++) {
+            resultcodeps.push(SortedData[i].key);
+            resultcount.push(SortedData[i].value);
           }
         }
-        // sort the result by region :
-        const SortedData = groupedData.sort((a, b) => {
-          return a.key - b.key;
-        });
-        //push the result into the final data
-
-        groupedData.map((data, key) => {
-          resultcenter.push(data.key);
-          resultcount.push(data.value);
-        });
 
         // push the result into the series of chart
-        setCenter(resultcenter);
+        setCodeps(resultcodeps);
         setCount(resultcount);
       });
-    }else{
     }
-  }, [idMax]);
+  }, []);
 
   const option = {
-    stroke: { width: 7, curve: "smooth" },
     series: [
       {
-        name: "rate",
         data: count,
       },
     ],
     options: {
       chart: {
+        type: "bar",
         height: 350,
-        type: "line",
-        zoom: {
-          enabled: false,
+      },
+      plotOptions: {
+        bar: {
+          borderRadius: 4,
+          horizontal: true,
         },
       },
       dataLabels: {
         enabled: false,
       },
-      stroke: {
-        curve: "straight",
-      },
-
-      grid: {
-        row: {
-          colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
-          opacity: 0.5,
-        },
-      },
       xaxis: {
-        categories: center,
+        categories: codeps,
       },
     },
   };
+  // go to the details of one medication
   //Navigation
   const navigate = useNavigate();
   const navigateToOneTrainingSeeMore = (row) => {
-    navigate("/overview/ppa/oneTraining/SeeMore", {
+    navigate("/overview/quantity/oneTraining/SeeMore", {
       state: { idMax: idMax },
     });
   };
@@ -136,7 +122,7 @@ const OneTrainingLine = ({idMax}) => {
       alignItems="stretch"
       spacing={0}
       sx={{
-        height: "468px",
+        height: "345px",
         width: "100%",
       }}
     >
@@ -152,7 +138,7 @@ const OneTrainingLine = ({idMax}) => {
             variant="h6"
             gutterBottom
           >
-            Le taux de fraude dans chaque région
+            Les 5 pharmacies les plus suspecte
           </Typography>
           <Chip
             label="Details"
@@ -174,7 +160,7 @@ const OneTrainingLine = ({idMax}) => {
         }}
       >
         <Chart
-          type="area"
+          type="bar"
           width="100%"
           height="100%"
           options={option.options}
@@ -185,4 +171,4 @@ const OneTrainingLine = ({idMax}) => {
   );
 };
 
-export default OneTrainingLine;
+export default OneTrainingBarHorizontal;

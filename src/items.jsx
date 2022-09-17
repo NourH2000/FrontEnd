@@ -22,7 +22,7 @@ export const items = [
   },
   {
     icon: <MedicationIcon />,
-    path: "/overview",
+    path: "/overview/quantity/oneTraining",
     type: "item",
     label: "Quantitée de medicaments",
   },

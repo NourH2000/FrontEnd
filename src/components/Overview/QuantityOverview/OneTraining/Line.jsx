@@ -18,10 +18,12 @@ const OneTrainingLine = ({idMax}) => {
 
   // get the data ( count grouped by medication )
 
+ 
+
   // initial values
   const [center, setCenter] = useState([]);
   const [count, setCount] = useState([]);
-  const [newRigion, setnewRigion] = useState({}); // this for the newRigion that not exist
+  const [newRegion, setNewRegion] = useState({}); // this for the newRegion that not exist
   // function to group the data by center and count em :
   const group = function (array) {
     var r = [],
@@ -37,12 +39,12 @@ const OneTrainingLine = ({idMax}) => {
   };
 
   useEffect(() => {
+    if(idMax){
     // get the medication suspected with count
     const resultcenter = [];
     const resultcount = [];
-    if(idMax){
     axios
-      .get("http://localhost:8000/DetailsOfTrainingP/CountCenterMedication/", {
+      .get("http://localhost:8000/DetailsOfTrainingQ/CountCenterMedication/", {
         params: {
           idEntrainement: idMax,
         },
@@ -53,11 +55,11 @@ const OneTrainingLine = ({idMax}) => {
 
         // group the data :
         const groupedData = group(data);
-
+        console.log(groupedData)
         //push the data into a table of center and count
         var v = {};
         // is all region exists
-        for (let i = 1; i < 60; i++) {
+        for (let i = 1; i < 59; i++) {
           let find = false;
           groupedData.map((data, key) => {
             data.key == i ? (find = true) : false;
@@ -84,12 +86,10 @@ const OneTrainingLine = ({idMax}) => {
         setCenter(resultcenter);
         setCount(resultcount);
       });
-    }else{
     }
-  }, [idMax]);
+  }, []);
 
   const option = {
-    stroke: { width: 7, curve: "smooth" },
     series: [
       {
         name: "rate",
@@ -97,11 +97,12 @@ const OneTrainingLine = ({idMax}) => {
       },
     ],
     options: {
+      stroke: { width: 7, curve: "smooth" },
       chart: {
         height: 350,
         type: "line",
         zoom: {
-          enabled: false,
+          enabled: true,
         },
       },
       dataLabels: {
@@ -117,6 +118,7 @@ const OneTrainingLine = ({idMax}) => {
           opacity: 0.5,
         },
       },
+
       xaxis: {
         categories: center,
       },
@@ -125,9 +127,10 @@ const OneTrainingLine = ({idMax}) => {
   //Navigation
   const navigate = useNavigate();
   const navigateToOneTrainingSeeMore = (row) => {
-    navigate("/overview/ppa/oneTraining/SeeMore", {
+    navigate("/overview/quantity/oneTraining/SeeMore", {
       state: { idMax: idMax },
-    });
+     });
+
   };
 
   return (
@@ -136,7 +139,7 @@ const OneTrainingLine = ({idMax}) => {
       alignItems="stretch"
       spacing={0}
       sx={{
-        height: "468px",
+        height : "468px",
         width: "100%",
       }}
     >
@@ -148,15 +151,15 @@ const OneTrainingLine = ({idMax}) => {
         >
           <Typography
             color="black"
-            sx={{ fontWeight: "bold", marginBottom: "2%", marginTop: "1%" }}
+            sx={{ fontWeight: "bold", marginBottom: "2%" }}
             variant="h6"
             gutterBottom
           >
-            Le taux de fraude dans chaque région
+            Le taux de d'abus dans chaque région
           </Typography>
           <Chip
             label="Details"
-            sx={{ marginTop: "1%" }}
+            
             variant="outlined"
             onClick={navigateToOneTrainingSeeMore}
           />

@@ -2,11 +2,11 @@ import { Stack, Typography, Paper, Divider, Chip } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import Chart from "react-apexcharts";
 import { styled } from "@mui/material/styles";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { gridColumnsSelector } from "@mui/x-data-grid";
 
-const OneTrainingLine = ({idMax}) => {
+const OneMedicationColumnTS = () => {
   // item stack
   const ItemStack = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -18,116 +18,127 @@ const OneTrainingLine = ({idMax}) => {
 
   // get the data ( count grouped by medication )
 
+  const location = useLocation();
+
+  // Id of training :
+  const idMax = location.state.idMax;
+  const medicament = location.state.medicament;
+
   // initial values
-  const [center, setCenter] = useState([]);
+  const [ts, setts] = useState([]);
   const [count, setCount] = useState([]);
-  const [newRigion, setnewRigion] = useState({}); // this for the newRigion that not exist
-  // function to group the data by center and count em :
+
+  // function to group the data by ts and count em :
   const group = function (array) {
     var r = [],
       o = {};
     array.forEach(function (a) {
-      if (!o[a.region]) {
-        o[a.region] = { key: a.region, value: 0 };
-        r.push(o[a.region]);
+      if(a.ts == -1 || a.ts == 1 ){
+        a.ts = 'Hors traitement spécifique'  }
+        else{
+          a.ts = 'Traitement spécifique'
       }
-      o[a.region].value++;
+      if (!o[a.ts]) {
+        o[a.ts] = { key: a.ts, value: 0 };
+        r.push(o[a.ts]);
+      }
+      o[a.ts].value++;
     });
     return r;
   };
 
   useEffect(() => {
     // get the medication suspected with count
-    const resultcenter = [];
+    const resultts = [];
     const resultcount = [];
-    if(idMax){
     axios
-      .get("http://localhost:8000/DetailsOfTrainingP/CountCenterMedication/", {
-        params: {
-          idEntrainement: idMax,
-        },
-      })
+      .get(
+        "http://localhost:8000/DetailsOfMedicationQ/TsOneMedication/",
+        {
+          params: {
+            idEntrainement: idMax,
+            numEnr: medicament,
+          },
+        }
+      )
       .then((response) => {
         // get the data result
         const data = response.data;
 
         // group the data :
         const groupedData = group(data);
-
-        //push the data into a table of center and count
-        var v = {};
-        // is all region exists
-        for (let i = 1; i < 60; i++) {
-          let find = false;
-          groupedData.map((data, key) => {
-            data.key == i ? (find = true) : false;
-          });
-
-          // if the wilata does not exist , add the new object
-          if (!find) {
-            v = { key: i, value: 0 };
-            groupedData.push(v);
-          }
-        }
-        // sort the result by region :
-        const SortedData = groupedData.sort((a, b) => {
-          return a.key - b.key;
-        });
-        //push the result into the final data
-
+        //const groupedData = [{key : "Traitement spécifique" , value : 32 } , {key : "Hors traitement spécifique" , value : 15 }]
+        //console.log(groupedData)
+        // push the data into a table of ts and count
         groupedData.map((data, key) => {
-          resultcenter.push(data.key);
+          resultts.push(data.key);
           resultcount.push(data.value);
         });
 
         // push the result into the series of chart
-        setCenter(resultcenter);
+        setts(resultts);
         setCount(resultcount);
       });
-    }else{
-    }
-  }, [idMax]);
+  }, []);
 
   const option = {
-    stroke: { width: 7, curve: "smooth" },
     series: [
       {
-        name: "rate",
         data: count,
       },
     ],
     options: {
       chart: {
         height: 350,
-        type: "line",
-        zoom: {
-          enabled: false,
+        type: "bar",
+      },
+      plotOptions: {
+        bar: {
+          borderRadius: 10,
+          dataLabels: {
+            position: "top", // top, center, bottom
+          },
         },
       },
       dataLabels: {
-        enabled: false,
-      },
-      stroke: {
-        curve: "straight",
-      },
+        enabled: true,
 
-      grid: {
-        row: {
-          colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
-          opacity: 0.5,
+        offsetY: -20,
+        style: {
+          fontSize: "12px",
+          colors: ["#38598b"],
         },
       },
+
       xaxis: {
-        categories: center,
+        categories: ts,
+        position: "top",
+        axisBorder: {
+          show: false,
+        },
+        axisTicks: {
+          show: false,
+        },
+        crosshairs: {},
+        tooltip: {
+          enabled: true,
+        },
+      },
+      yaxis: {
+        axisBorder: {
+          show: false,
+        },
+        axisTicks: {
+          show: false,
+        },
+        labels: {
+          show: false,
+        },
       },
     },
   };
-  //Navigation
-  const navigate = useNavigate();
-  const navigateToOneTrainingSeeMore = (row) => {
-    navigate("/overview/ppa/oneTraining/SeeMore", {
-      state: { idMax: idMax },
-    });
+  const handleClick = () => {
+    console.info("You clicked the Chip.");
   };
 
   return (
@@ -152,13 +163,13 @@ const OneTrainingLine = ({idMax}) => {
             variant="h6"
             gutterBottom
           >
-            Le taux de fraude dans chaque région
+            TS
           </Typography>
           <Chip
             label="Details"
             sx={{ marginTop: "1%" }}
             variant="outlined"
-            onClick={navigateToOneTrainingSeeMore}
+            onClick={handleClick}
           />
         </Stack>
 
@@ -174,7 +185,7 @@ const OneTrainingLine = ({idMax}) => {
         }}
       >
         <Chart
-          type="area"
+          type="bar"
           width="100%"
           height="100%"
           options={option.options}
@@ -185,4 +196,4 @@ const OneTrainingLine = ({idMax}) => {
   );
 };
 
-export default OneTrainingLine;
+export default OneMedicationColumnTS;

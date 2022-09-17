@@ -20,10 +20,10 @@ import {
   Typography,
 } from "@mui/material";
 
-const OneTrainingLayoutQSeeMore = ({ DetailsTable }) => {
+const OverviewOneMedicationLayoutQSeeMore = ({ DetailsTable }) => {
   // recupérer l'id de historique
   const location = useLocation();
-  const idHistory = location.state.idHistory;
+  const idMax = location.state.idMax;
 
   const ItemStack = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -42,9 +42,6 @@ const OneTrainingLayoutQSeeMore = ({ DetailsTable }) => {
     color: theme.palette.text.secondary,
   }));
 
-
-
-    
   return (
     <>
     <Typography
@@ -53,7 +50,7 @@ const OneTrainingLayoutQSeeMore = ({ DetailsTable }) => {
           variant="h6"
           gutterBottom
         >
-         Traitement quantité <strong>{idHistory}</strong>
+         Traitement quantité  <strong>{idMax}</strong>
         </Typography>
     <Stack spacing={1} sx={{ width: "100%" }}>
       <ItemStack sx={{ backgroundColor: "transparent" }}>
@@ -68,14 +65,14 @@ const OneTrainingLayoutQSeeMore = ({ DetailsTable }) => {
       </ItemStack>
 
       <ItemStack sx={{ backgroundColor: "transparent" }}>
-        <Grid container spacing={10}>
-          <Grid item spacing={0} xs={6}>
+        <Grid container spacing={2}>
+          <Grid item spacing={0} xs={5}>
             <ItemGrid xs={9} sx={{ padding: "3%", height: 800 }}>
               {" "}
               <OneTrainingPharmacyDatagridSeeMore />{" "}
             </ItemGrid>
           </Grid>
-          <Grid item spacing={0} xs={6}>
+          <Grid item spacing={0} xs={7}>
             <ItemGrid xs={9} sx={{ padding: "3%", height: 800 }}>
               {" "}
               <OneTrainingCenterDatagridSeeMore />{" "}
@@ -83,8 +80,9 @@ const OneTrainingLayoutQSeeMore = ({ DetailsTable }) => {
           </Grid>
         </Grid>
       </ItemStack>
-    </Stack></>
+    </Stack>
+    </>
   );
 };
 
-export default OneTrainingLayoutQSeeMore;
+export default OverviewOneMedicationLayoutQSeeMore;

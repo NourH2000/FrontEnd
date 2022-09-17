@@ -20,10 +20,10 @@ import {
   Typography,
 } from "@mui/material";
 
-const OneTrainingLayoutQSeeMore = ({ DetailsTable }) => {
+const OverviewOneTrainingLayoutQSeeMore = ({ DetailsTable }) => {
   // recupérer l'id de historique
   const location = useLocation();
-  const idHistory = location.state.idHistory;
+  const idMax = location.state.idMax;
 
   const ItemStack = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -42,9 +42,6 @@ const OneTrainingLayoutQSeeMore = ({ DetailsTable }) => {
     color: theme.palette.text.secondary,
   }));
 
-
-
-    
   return (
     <>
     <Typography
@@ -53,7 +50,7 @@ const OneTrainingLayoutQSeeMore = ({ DetailsTable }) => {
           variant="h6"
           gutterBottom
         >
-         Traitement quantité <strong>{idHistory}</strong>
+         Traitement quantité <strong>{idMax}</strong>
         </Typography>
     <Stack spacing={1} sx={{ width: "100%" }}>
       <ItemStack sx={{ backgroundColor: "transparent" }}>
@@ -87,4 +84,4 @@ const OneTrainingLayoutQSeeMore = ({ DetailsTable }) => {
   );
 };
 
-export default OneTrainingLayoutQSeeMore;
+export default OverviewOneTrainingLayoutQSeeMore;

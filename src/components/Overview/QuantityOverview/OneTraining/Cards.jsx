@@ -33,18 +33,19 @@ const Cards = ({ type , idMax }) => {
     },
   }));
 
-  // id of training
 
 
   // cards params and
   const [medicament, setMedicament] = useState();
   const [cas, setCas] = useState(0);
-  
+
   useEffect(() => {
     if(idMax){
+
+    
     axios
       .get(
-        "http://localhost:8000/DetailsOfTrainingP/CountMedicamentSuspected",
+        "http://localhost:8000/DetailsOfTrainingQ/CountMedicamentSuspected",
         {
           params: {
             idEntrainement: idMax,
@@ -64,15 +65,16 @@ const Cards = ({ type , idMax }) => {
     }else{
       console.log("Nothing")
     }
+      
   }, [idMax]);
 
   // title of cards
   const title = (type) => {
     if (type === "Medicament") {
-      return " Nombre de médicaments suspectés";
+      return "Nombre de médicaments suspectés";
     }
     if (type === "Cas") {
-      return "Total des cas suspects";
+      return "Totale des cas suspects";
     }
   };
 

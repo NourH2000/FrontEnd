@@ -19,7 +19,7 @@ import {
   Typography,
 } from "@mui/material";
 
-const OneMedicationLayoutPSeeMore = ({ DetailsTable }) => {
+const OverviewOneMedicationLayoutPSeeMore = ({ DetailsTable }) => {
   // recupérer l'id de historique
   const location = useLocation();
   //const idMax = location.state.idMax;
@@ -63,4 +63,4 @@ const OneMedicationLayoutPSeeMore = ({ DetailsTable }) => {
   );
 };
 
-export default OneMedicationLayoutPSeeMore;
+export default OverviewOneMedicationLayoutPSeeMore;

@@ -59,7 +59,8 @@ const OneTrainingCenterDatagridSeeMore = () => {
   const [tableData, setTableData] = useState([]);
 
   // fetch the data :
-  const idHistory = location.state.idHistory;
+  const idMax = location.state.idMax;
+
   // state for wilaya
 
   // table of wilaya's
@@ -69,17 +70,17 @@ const OneTrainingCenterDatagridSeeMore = () => {
   const All = 0
   const [wilaya, setWilaya] = useState(All);
   const handleChange = (event) => {
-    console.log(event.target.value)
     setWilaya(event.target.value);
   };
 
   useEffect(() => {
+    if(idMax){
     axios
       .get(
         "http://localhost:8000/DetailsOfTrainingQ/CountOneCenterMedication/",
         {
           params: {
-            idEntrainement: idHistory,
+            idEntrainement: idMax,
             region: wilaya,
           },
         }
@@ -87,6 +88,7 @@ const OneTrainingCenterDatagridSeeMore = () => {
       .then((response) => {
         setTableData(response.data);
       });
+    }
   }, [wilaya]);
 
   // auto increment ID
