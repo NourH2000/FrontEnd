@@ -1,7 +1,6 @@
 import Overview from "./components/Overview/Overview";
 import Settings from "./components/Parameter/Settings";
 import Login from "./components/LogIn/Login";
-
 // quantity routes
 import HistoryLayoutQ from "./components/Quantity/History/Layout";
 import OneMedicationLayoutQ from "./components/Quantity/OneMedication/Layout";
@@ -25,7 +24,8 @@ import OverviewOneTrainingLayoutPSeeMore from "./components/Overview/PpaOverview
 import OverviewOneMedicationLayoutP from "./components/Overview/PpaOverview/OneMedication/Layout";
 import OverviewOneMedicationLayoutPSeeMore from "./components/Overview/PpaOverview/OneMedication/SeeMore/Layout";
 
-export const routes = [
+
+export const Privateroutes = [
   { path: "/overview", component: Overview },
   { path: "/history/quantity", component: HistoryLayoutQ },
   { path: "/history/quantity/oneTraining", component: OneTrainingLayoutQ },
@@ -93,8 +93,8 @@ export const routes = [
     path: "/settings",
     component: Settings,
   },
-  {
-    path: "/login",
-    component: Login,
- },
+  
+  
+  //{path: "/login",component: Login}
 ];
+export const Publicroutes = [  {path: "/login",component: Login}  ]

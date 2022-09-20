@@ -15,6 +15,7 @@ import React, { useEffect, useState } from "react";
 import Cards from "./Cards";
 import Barchart from "./Barchart";
 import { getFetcher, postFetcher } from "../../helpers/index";
+import { useNavigate } from "react-router-dom";
 const Overview = () => {
   const [state, setState] = useState();
 
@@ -58,10 +59,17 @@ const Overview = () => {
             display: 'flex',
           }
       }));*/
+      const navigate = useNavigate();
+      const logout = () =>{
+        localStorage.clear()
+        navigate("/login")
+        console.log(localStorage.getItem("auth"))
 
+      }
   return (
     <Stack spacing={1} sx={{ width: "100%", height: "100%" }}>
       <ItemStack elevation={0} sx={{ backgroundColor: "transparent" }}>
+      <Button onClick={logout}>logout</Button>
         <Grid
           container
           xs={12}
@@ -90,6 +98,7 @@ const Overview = () => {
           </Grid>
         </Grid>
       </ItemStack>
+      
     </Stack>
   );
 };

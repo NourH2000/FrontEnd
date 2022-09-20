@@ -1,4 +1,5 @@
-import * as React from "react";
+import  React , {useState , useEffect} from "react";
+import axios from "axios";
 import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -16,14 +17,14 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { BrowserRouter, Route, Routes, Link, Navigate } from "react-router-dom";
-import { routes } from "./routes";
+import { Privateroutes , Publicroutes } from "./routes";
 import { Grid, Icon, Menu, MenuItem, Stack } from "@mui/material";
 import { items } from "./items";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import MenuAppBar from "./MenuAppBar";
 const drawerWidth = 300;
 
-function ResponsiveDrawer(props) {
+function PrivateRoutes(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -184,7 +185,9 @@ function ResponsiveDrawer(props) {
             }}
           >
             <Routes>
-              {routes.map((item, Index) => (
+              {
+              Privateroutes.map((item, Index) => (
+                
                 <Route
                   exact
                   Key={Index}
@@ -201,12 +204,63 @@ function ResponsiveDrawer(props) {
   );
 }
 
-ResponsiveDrawer.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window: PropTypes.func,
+const PublicRoutes = () => {
+  return (
+    <BrowserRouter>
+    <Routes>
+            {Publicroutes.map((item, Index) => (
+              <Route
+                exact
+                Key={Index}
+                path={item.path}
+                element={<item.component />}
+              />
+            ))}
+            <Route path={"*"} element={<Navigate to={"/login"} />} />
+          </Routes>
+          </BrowserRouter>
+  );
 };
 
-export default ResponsiveDrawer;
+const Main = () => {
+// check if there is a user logedIn
+//const [user, setUser] = React.useState(false);
+/*useEffect(() => {
+  
+axios.get("http://localhost:8000/auth/login")
+.then((response) => { 
+ 
+  // if it is => change the status
+  if(response.data.logedIn == true){
+  //console.log(response.data.user.rows[0].username)
+   console.log(response.data.user.rows[0].username)
+  //setLoginStatus(true)
+  setUser(true)
+  
+}else{
+  setUser(false)
+}
+})
+},[user])
+
+*/
+
+  const auth = localStorage.getItem("auth");
+
+
+if (auth){
+  //console.log("am a true " , authState)
+ return <PrivateRoutes />;
+}else{
+  //onsole.log("am a fase " , authState)
+return <PublicRoutes />;
+}
+
+};
+
+  
+
+  
+
+
+export default Main;

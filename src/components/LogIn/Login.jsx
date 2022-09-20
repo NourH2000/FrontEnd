@@ -3,30 +3,32 @@ import { Box, Container } from "@mui/system";
 import React, { useState, useEffect } from "react";
 import Alert from '@mui/material/Alert';
 import axios, { Axios } from "axios";
+import { useNavigate } from "react-router-dom";
 axios.defaults.withCredentials = true
 
 
 
 const Login = () => {
 
-const [loginStatus, setLoginStatus] = useState("")
-const [authenticated, setauthenticated] = useState(localStorage.getItem(localStorage.getItem("authenticated")|| false));
-useEffect(() => {
-  // check if there is a user logedIn
-axios.get("http://localhost:8000/auth/login")
-.then((response) => { 
-  // if it is => change the status
-  if(response.data.logedIn == true){
-  console.log(response.data.user.rows[0].username)
-  setLoginStatus(response.data.user.rows[0].username)}
-})
-},[loginStatus])
+
 
 
 const [username, setUsername] = useState("")
 const [password, setPassword] = useState("")
 const [open, setOpen] = useState(false)
 const [msg, setMsg] = useState("")
+const [auth, setauth] = useState(localStorage.getItem(localStorage.getItem("auth")|| false));
+
+
+
+//Navigation
+const navigate = useNavigate();
+const navigateToTheOverview = () => {
+  
+  navigate("/overview")
+  }
+  
+
 const login = () => {
     //console.log("am here")
     
@@ -36,14 +38,16 @@ const login = () => {
     console.log("MSG :" , response.data.msg)
     if(response.data.connected == -1 || response.data.connected == 0 ){
       setOpen(true)
-      setMsg(response.data.msg)
-      setauthenticated(false)
-      localStorage.setItem("authenticated", false);
-      console.log("am hereeee ")
+      //setMsg(response.data.msg)
+      //setauthenticated(false)
+      localStorage.setItem("auth", false);
+      
     }else{
-      setauthenticated(true)
-      localStorage.setItem("authenticated", true);
-      console.log("am here ")
+      //setauthenticated(true)
+      console.log('you areeeeeee')
+      localStorage.setItem("auth", true);
+      navigateToTheOverview()
+      
     }
   })
 }
