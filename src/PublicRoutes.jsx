@@ -1,23 +1,20 @@
 import React  , { useState , useEffect ,  } from 'react'
-import { Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Publicroutes } from './routes';
 import Layout from "./Layout";
-
+import Login from './components/LogIn/Login';
 const PublicRoutes = () => {
-  
   return (
+   
+    <BrowserRouter>
+
   <Routes>
-            {Publicroutes.map((item, Index) => (
-              <Route
-                exact
-                Key={Index}
-                path={item.path}
-                element={<item.component />}
-              />
-            ))}
+            <Route path="/login" element={<Login />}/>
             <Route path={"*"} element={<Navigate to={"/login"} />} />
           </Routes>
-  )
+          </BrowserRouter>
+  ) 
+  
 }
 
 

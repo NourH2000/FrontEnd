@@ -24,7 +24,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import MenuAppBar from "./MenuAppBar";
 const drawerWidth = 300;
 
-function Layout(props) {
+function PrivateRoutes(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -204,11 +204,63 @@ function Layout(props) {
   );
 }
 
+const PublicRoutes = () => {
+  return (
+    <BrowserRouter>
+    <Routes>
+            {Publicroutes.map((item, Index) => (
+              <Route
+                exact
+                Key={Index}
+                path={item.path}
+                element={<item.component />}
+              />
+            ))}
+            <Route path={"*"} element={<Navigate to={"/login"} />} />
+          </Routes>
+          </BrowserRouter>
+  );
+};
 
+const Main = () => {
+// check if there is a user logedIn
+//const [user, setUser] = React.useState(false);
+/*useEffect(() => {
+  
+axios.get("http://localhost:8000/auth/login")
+.then((response) => { 
+ 
+  // if it is => change the status
+  if(response.data.logedIn == true){
+  //console.log(response.data.user.rows[0].username)
+   console.log(response.data.user.rows[0].username)
+  //setLoginStatus(true)
+  setUser(true)
+  
+}else{
+  setUser(false)
+}
+})
+},[user])
+
+*/
+
+  const auth = localStorage.getItem("auth");
+
+
+if (auth){
+  //console.log("am a true " , authState)
+ return <PrivateRoutes />;
+}else{
+  //onsole.log("am a fase " , authState)
+return <PublicRoutes />;
+}
+
+};
 
   
 
   
 
 
-export default Layout;
+export default Main;

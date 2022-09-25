@@ -3,11 +3,12 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import Badge from "@mui/material/Badge";
 import { Box } from "@mui/system";
-import { Divider, IconButton, Menu, MenuItem } from "@mui/material";
+import { Button, Divider, IconButton, Menu, MenuItem } from "@mui/material";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import axios from "axios";
 import CancelIcon from '@mui/icons-material/Cancel';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { useNavigate } from "react-router-dom";
 const MenuAppBar = () => {
 
 
@@ -72,6 +73,7 @@ const MenuAppBar = () => {
       setAnchorEl(event.currentTarget);
      
   }
+ 
   // handle close for the notifications  ==> change the status of notifications
   const handleClose = () => {
     setAnchorEl(null);
@@ -96,7 +98,32 @@ const MenuAppBar = () => {
   }
   };
 
- 
+
+   // for the menu of the acount
+   const [anchoraccount, setAnchoraccount] = useState(null)
+  // open the acount menue
+  const handleAccount = async (event) => {
+    setAnchoraccount(event.currentTarget);
+   
+}
+
+// close the account menu
+const handleCloseAccount = () => {
+  setAnchoraccount(null);
+}
+
+
+const navigate = useNavigate();
+
+const logout = () =>{
+  axios.get("http://localhost:8000/auth/logout")
+  .then((response)=>{
+    console.log("MSG :" , response.data.msg)
+    localStorage.clear()
+    navigate("/login")
+  })
+}
+
 
   return (
     <Box sx={{ display: { xs: "none", md: "flex" } }}>
@@ -147,9 +174,34 @@ const MenuAppBar = () => {
         aria-label="account of current user"
         aria-haspopup="true"
         color="inherit"
+        onClick={handleAccount}
       >
         <AccountCircle sx={{ color: "#113f67", fontSize: 35 }} />
       </IconButton>
+
+
+      <Menu
+        id="menu-appbar"
+        anchorEl={anchoraccount}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        keepMounted
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        open={Boolean(anchoraccount)}
+        onClose={handleCloseAccount}
+      >
+       
+            <MenuItem onClick={handleCloseAccount} sx={{ backgroundColor :"white"  ,marginBottom :0 }}>  <Button onClick={logout}>logout</Button></MenuItem>
+           
+           
+          
+      
+      </Menu>
     </Box>
   );
 };

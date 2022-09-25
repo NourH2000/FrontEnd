@@ -1,78 +1,92 @@
-import { Avatar, Button, Checkbox, CssBaseline, FormControlLabel, Grid, Link, Snackbar, TextField, Typography } from "@mui/material";
-import { Box, Container } from "@mui/system";
-import React, { useState, useEffect } from "react";
+import React  , { useState, useEffect }  from 'react';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import { Avatar, Button, Checkbox, CssBaseline, FormControlLabel, Link, Snackbar, TextField, Typography } from "@mui/material";
+import { Container } from "@mui/system";
 import Alert from '@mui/material/Alert';
 import axios, { Axios } from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate , Navigate} from "react-router-dom";
+import { styled } from '@mui/system';
+
 axios.defaults.withCredentials = true
 
-
-
-const Login = () => {
-
-
-
-
+const Login = () =>{
 const [username, setUsername] = useState("")
 const [password, setPassword] = useState("")
 const [open, setOpen] = useState(false)
 const [msg, setMsg] = useState("")
-const [auth, setauth] = useState(localStorage.getItem(localStorage.getItem("auth")|| false));
-
-
 
 //Navigation
 const navigate = useNavigate();
+
 const navigateToTheOverview = () => {
-  
   navigate("/overview")
   }
-  
+
+
+// Login function 
 
 const login = () => {
-    //console.log("am here")
+  //console.log("am here")
+  
+axios.post("http://localhost:8000/auth/login"
+ ,{username :username , password :password})
+ .then((response)=>{
+  console.log("MSG :" , response.data.msg)
+  if(response.data.connected == -1 || response.data.connected == 0 ){
+    setOpen(true)
+    setMsg(response.data.msg)
+    //setauthenticated(false)
+    localStorage.setItem("auth", false);
     
-  axios.post("http://localhost:8000/auth/login"
-   ,{username :username , password :password})
-   .then((response)=>{
-    console.log("MSG :" , response.data.msg)
-    if(response.data.connected == -1 || response.data.connected == 0 ){
-      setOpen(true)
-      //setMsg(response.data.msg)
-      //setauthenticated(false)
-      localStorage.setItem("auth", false);
-      
-    }else{
-      //setauthenticated(true)
-      console.log('you areeeeeee')
-      localStorage.setItem("auth", true);
-      navigateToTheOverview()
-      
-    }
-  })
+  }else{
+    //setauthenticated(true)
+  
+    localStorage.setItem("auth", true);
+    navigateToTheOverview()
+    
+  }
+})
 }
 
+const LayoutContainer = styled('div')(() => ({
+  height: '100%',
+  overflow: 'hidden',
+  width: '100%',
+  
+  marginTop : '5%'
+}));
+  return (
+    <Grid Container sx={{marginTop : '5%'}}>
+    
+      <Box
+        sx={{
+          boxShadow: 1,
+        
+          bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#101010' : '#fff'),
+          color: (theme) =>
+            theme.palette.mode === 'dark' ? 'grey.300' : 'grey.800',
+          p: 1,
+          m: 1,
+          borderRadius: 2,
+          textAlign: 'center',
+          alignContent : 'center',
+          fontSize: '0.875rem',
+          fontWeight: '700',
+          width :'30%',
+          marginLeft : 'auto' ,  
+          marginRight : 'auto',
+          paddingTop : 5,
+          paddingBottom : 15
 
-    return (
-    <>
-     <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            padding: 3,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            backgroundColor:"green", 
-          
-          }}
-        >
           
           
-          <img src="/src/assets/Login.png" alt="horse" height="150" />
-          <Typography component="h1" variant="h5">
+        }}
+      >
+          <Typography component="h1" variant="h4" sx={{ margin : 4}}>
+            Log in
           </Typography>
-          <Box component="form" noValidate sx={{ mt: 1 }}>
+          <Box component="form" noValidate sx={{ mt: 1  , width :'90%' , marginLeft : 'auto' ,  marginRight : 'auto'}}>
           <Snackbar
         open={open}
         autoHideDuration={3000}
@@ -109,19 +123,16 @@ const login = () => {
               //type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 10, mb: 2 , width :'70%'}}
               onClick={login}
             >
               Log in
             </Button>
             
           </Box>
-          
-        </Box>
-
-      </Container>
-    </>
-    )
-};
-
-export default Login;
+      </Box>
+      
+    </Grid>
+  );
+}
+export default Login
